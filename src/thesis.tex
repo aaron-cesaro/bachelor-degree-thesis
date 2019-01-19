@@ -42,6 +42,26 @@ Particolare enfasi è stata data alla comprensione ed all'utilizzo della blockch
 
 \section{Introduzione}
 
+\subsection{Contenuto del documento}
+
+All'interno del docuemento verrano trattati i seguenti argomenti: 
+\begin{itemize}
+	\item \textbf{Capitolo 2: Blockchain network:} verrà descritta la rete \textit{blockchain}, le tecnologie che ne permettono il funzionamento, le logiche di base su cui si fondano le transazioni e le principali differenze tra le piattaforme \textit{Bitcoin} ed \textit{Ethereum}.
+	\item \textbf{Capitolo 3: La piattaforma Sgame Pro:} in questo capitolo verrà presentata l'applicazione \textit{Sgame Pro} e l'utilizzo di \textit{Ethereum} all'interno della stessa. Verrà inoltre data una visione d'insieme sulla piattaforma oltre a giustificare le motivazioni alla base dello sviluppo del servizio \textit{Token Value}.
+	\item \textbf{Capitolo 4: Token Value service:}
+	\item \textbf{Capitolo 5: Considerazioni finali:}
+\end{itemize}
+
+
+\subsection{Norme tipografiche}
+
+
+%----------------------------------------------------------------------------------------
+%	BLOCKCHAIN
+%----------------------------------------------------------------------------------------
+\pagebreak
+\section{Blockchain network}
+
 \subsection{Cos'è una Blockchain}
 
 \subsubsection{Definizione}
@@ -179,7 +199,7 @@ Perchè la catena possa proseguire (cioè perchè possano essere effettuate nuov
 Il modo escogitato per ripagare chi indovina il numero che valida il blocco (cioè svolge il lavoro di \textit{miner}) è una ricompensa in \textit{Bitcoin} da parte della rete. 
 Questa ricompensa è ciò che incentiva le persone a provvedere al necessario lavoro computazionale per far continuare la catena e mantenere la rete utilizzabile. Senza i \textit{miners} i blocchi non potrebbero essere validati, la catena si fermerebbe e le transazioni non potrebbero più avere luogo.
 
-
+\pagebreak
 \subsection{Ethereum}
 
 \subsubsection{Cos'é Ethereum}
@@ -188,21 +208,39 @@ Come \textit{Bitcoin}, \textit{Ethereum} è una \textit{public blockchain}.\\
 Sebbene ci siano alcune significative differenze tecniche tra le due, la distinzione più importante da notare è che \textit{Bitcoin} ed \textit{Ethereum} differiscono sostanzialmente per scopo e capacità.\\
 Il \textit{Bitcoin} è stato lanciato come valuta alternativa, o moneta digitale, ed offre una particolare applicazione della tecnologia \textit{blockchain}, ossia un sistema di pagamento elettronico.\\
 \textit{Ethereum} invece viene principalmnte utilizzato per applicazioni decentralizzate tramite l'utilizzo degli \textit{Smart Contract}.\\
-A differenza di \textit{Bitcoin}, \textit{Ethereum} utilizza due concetti di \textit{token}: il primo prende il nome di \textit{Ether} e corrisponde alla "moneta" effettivamente scambiata tra gli utenti della rete, il secondo viene invece utilizzato per pagare i \textit{miners}, i quali includono le transazioni nei blocchi, e prende il nome di \textit{gas}.\\
-
-\pagebreak
+A differenza di \textit{Bitcoin}, \textit{Ethereum} utilizza due concetti di \textit{token}: il primo prende il nome di \textit{Ether} e corrisponde alla "moneta" effettivamente scambiata tra gli utenti della rete, il secondo viene invece utilizzato per pagare i \textit{miners}, i quali includono le transazioni nei blocchi, e prende il nome di \textit{gas}.
 
 \subsubsection{Smart Contract}
 
 Uno \textit{Smart Contract} è un programma che contiene un insieme di regole a cui le parti interessate accettano di aderire.\\
 Nel caso in cui le regole definite all'interno di uno smart contract siano soddisfatte l'accordo tra le parti viene automaticamente applicato.\\
 Il codice di uno \textit{Smart Contract} facilita, verifica e impone la negoziazione o l'esecuzione di un accordo o di una transazione e corrisponde alla forma più semplice di automazione decentralizzata.\\
-Il successo di \textit{Ethereum} (e la più grande differenza con \textit{Bitcoin}) dipende proprio dal concetto di \textit{Smart Contract}. grazie a cui è possible programmare una serie definita di azioni che vengono attuate se e solo se le condizioni in esso contenute vengono soddisfatte.\\
+Il successo di \textit{Ethereum} (e la più grande differenza con \textit{Bitcoin}) dipende proprio dal concetto di \textit{Smart Contract}. grazie a cui è possible programmare una serie definita di azioni che vengono attuate se e solo se le condizioni in esso contenute vengono soddisfatte.
 
+%----------------------------------------------------------------------------------------
+%	Sgame Pro
+%----------------------------------------------------------------------------------------
 
-
-
-
+\section{La piattaforma Sgame Pro}
+%----------------------------------------------------------------------------------------
+%	FIGURA 5
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]\hfill
+    \centering
+    \includegraphics[width=\textwidth]{sgamepro-logo.png}
+    \label{fig:sgamepro}
+\end{figure}
+\textit{Sgame Pro} è un aggregatore di \textit{mobile games} di proprietà di \textit{Sgame SA}, con sede a Lugano, Svizzera.\\
+In sviluppo dal 2016, Sgame Pro ha lanciato con successo la sua \textit{Alpha version} nel 2017, raggiungendo oltre 50.000 download senza nessuna spesa di marketing.\\
+\textit{Sgame Pro} è interamente focalizzato sull'industria dei \textit{mobile games} e ha sviluppato due importanti innovazioni tecniche:
+\begin{itemize}
+	\item Consentire ai giocatori di essere remunerati con un nuovo utility token (\textit{SGM}) semplicemente giocando con il proprio cellulare ai titoli proposti;
+	\item Aggregare il frammentato settore dei \textit{publisher}, indipendenti e non, in un'unica piattaforma di gioco \textit{one-stop-shop}.
+\end{itemize}
+ L'\textit{SGM} (token di tipo \textit{utility} basato sullo standard \textit{Ethereum ERC-20}) sarà l'unico modo per accedere ai servizi e beneficiare di tutte le funzinalità messe a disposizione degli utenti, oltre ad essere il metodo di pagamento unico per tutte le transazioni all'interno dell'ecosistema della piattaforma.\\
+All'interno dell'applicazione i giocatori non solo avranno l'opportunità di trovare tutti gli ultimi titoli mobile resi disponibli, ma avranno anche l'opportunità di sfidare gli altri utenti sia in privato che tramite la funzionalità di \textit{Public Challenge}.\\
+Quest'ultima innovazione è davvero dirompente dato che il 78\% del mercato dei giochi mobile è single player, mentre la maggior parte delle entrate derivano da giochi multiplayer.\\
+Gli \textit{Influencers} di \textit{Sgame Pro} includono \textit{Pewdiepie}, \textit{Tweakbox} e molti altri, con oltre 80 milioni di seguaci altamente coinvolti e sparsi in tutto il mondo.\\ 
 
 
 
