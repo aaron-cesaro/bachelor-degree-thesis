@@ -39,7 +39,6 @@
 \title{Servizi di supporto alle transazioni su Blockchain Ethereum}
 \creationdate{10 Novembre 2018}
 \redactedby{Aaron Cesaro}
-
 \begin{document}
 \maketitle
 \pagebreak
@@ -368,6 +367,110 @@ contract ERC20Interface {
 \end{lstlisting}
 L'interfaccia \textit{ERC-20} funge da contratto per il set minimo di funzionalità che si intende mettere a disposizione dopo la creazione (\textit{issuing}) ti un token derivato da \textit{Ethereum}.\\
 La scelta di aderire a questo standard è stata guidata dall'altissima compatibilità con i vari \textit{Exchange} presenti oggigiorno sul mercato.
+
+\section{Token Value Service}
+
+\subsection{Overview}
+
+\textit{Token Value} è un servizio di acquisizione e memorizzazione dello storico di valori di criptovalute sulle diverse piattaforme di scambio (\textit{Exchange}).\\
+Il servizio espone delle \textit{API} pubbliche, utilizzate direttamente dalla piattaforma \textit{Sgame Pro}, per il calcolo delle vincite dei giocatori ed il prezzo dei beni acquistabili nella sezione \textit{Marketplace}. \\
+Grazie all'implementazione di questo servizio il sistema può applicare le logiche di business basate sul calcolo del prezzo presentato all'interno dell'applicazione, in modo da assicurare equità nell'attribuzione di \textit{SGM} e coerenza del valore riportato sugli oggetti acquistabili all'interno della stessa.\\
+Le funzionalità principali del servizio comprendono:
+\begin{itemize}
+	\item ottenimento del valore del token \textit{SGM} tramite l'utilizzo delle API messe a disposizione di ciascun exchange;
+	\item memorizzazione persistente dei valori ottenuti su database PostgreSQL;
+	\item caching dei valori per la diminuzione dei tempi di risposta;
+	\item utilizzo e trasmissione di valori ottimali secondo le logiche di selezione approvate dalla società.
+\end{itemize}
+Il servizio rappresenta attualmente un tassello fondamentale per la società \textit{Sgame SA} in quanto il valore del token riportato e propagato all'intera applicazione ha un impatto estremamente concreto sui guadagni dell'intera società.\\\\
+Una logica scorretta all'interno del servizio porterebbe irreparabilemente ad una erronea attribuizione delle vincite agli utenti e ad una possible perdita di denaro per la società.\\\\
+Proprio per queste ragioni il servizio utilizza logiche estremamente semplici e facilmente testabili.
+\pagebreak
+
+\subsection{Pianificazione}
+
+\begin{itemize}
+	\item \textbf{Prima Settimana}(42,5 ore) – Incontro con il team di sviluppo, formazione sul funzionamento di Ethereum ed introduzione ai linguaggi C\# e Solidity;
+	\item \textbf{Seconda Settimana}(42,5 ore) – Acquisizione delle informazioni necessarie alla realizzazione del servizio TokenValue ed ai servizi interni che utilizzerà ;
+	\item \textbf{Terza Settimana}(42,5 ore) – Sviluppo della logica di acquisizione e memorizzazione persistente dei valori necessari all’utilizzo del servizio TokenValue.
+	\item \textbf{Quarta Settimana}(42,5 ore) – Debugging e sviluppo della documentazione del servizio TokenValue. Entro il termine della settimana il tirocinante dovrà aver terminato e documentato il servizio sviluppato.
+	\item \textbf{Quinta Settimana}(42,5 ore) – Creazione dell’interfaccia grafica necessaria agli analisti di Sgame per la visualizzazione dei valori di mercato della criptovaluta target.
+	\item \textbf{Sesta Settimana}(42,5 ore) – Finalizzazione, bug fixing e documentazione dell’interfaccia grafica di TokenValue;
+	\item \textbf{Settima Settimana}(42,5 ore) – Creazione dell’ambiente di testing su AWS EC2 tramite l’utilizzo del tool Ganache ed automazione del deploy dello Smart Contract utilizzato dalla piattaforma Sgame; Utilizzo della rete pubblica Ropsten per l'advanced testing dello Smart Contract necessario al funzionamento della piattaforma Sgame;
+	\item \textbf{Ottava Settimana}(2,5 ore) – Presentazione agli Stakeholders del lavoro svolto sul servizio TokenValue, comprensivo di documentazione e giustificazione delle soluzioni adottate dal tirocinante.
+\end{itemize}
+\pagebreak
+
+\subsection{Analisi dei requisiti}
+
+\subsubsection{Notazioni}
+
+Viene di seguito riportata la notazione che verrà utilizzata per l’identificazione dei requisiti classificati per utilità strategica: 
+\begin{itemize}
+	\item \textbf{Ob} – requisiti obbligatori, irrinunciabili per qualsiasi Stakeholders.
+	\item \textbf{De} – requisiti desiderabili, aggiungono valore al prodotto.
+\end{itemize}
+Viene di seguito riportata la notazione che verrà utilizzata per l’identificazione dei requisiti classificati per verificabilità: 
+\begin{itemize}
+	\item \textbf{Vi} – requisiti vincolo, imposti dal cliente o dal sistema in cui lavora il software.
+\end{itemize}
+
+\subsubsection{Specifica dei requisiti}
+
+\textbf{Obbligatori}:
+\begin{itemize}
+	\item \textbf{Ob001} – il prodotto \textit{Token Value} deve raccogliere i dati sui valori delle criptovalute tramite chiamata \textit{REST API} al servizio cryptocompare.
+	\item \textbf{Ob002} – il prodotto \textit{Token Value} deve salvare dati persistenti sia sul valore attuale del token che sullo storico dei valori richiesti.
+	\item \textbf{Ob003} – il prodotto \textit{Token Value} deve essere corredato da documentazione.
+	\item \textbf{Ob004} – il prodotto \textit{Token Value} deve poter essere consultabile tramite interfaccia grafica.
+	\item \textbf{Ob004} – l’ambiente testnet di tipo private deve utilizzare uno script di \textit{auto-deploy} per lo \textit{Smart Contract}.
+\end{itemize}
+\textbf{Desiderabili}:
+\begin{itemize}
+	\item \textbf{De001} – il prodotto \textit{Token Value} deve essere documentato tramite\textit{ XML notation}.
+	\item \textbf{De002} – il prodotto \textit{Token Value} deve essere facilmente configurabile sia in ambiente \textit{Development} che in ambiente \textit{Staging} tramite l’utilizzo di specifiche variabili d’ambiente.
+\end{itemize}
+\textbf{Vincolo}:
+\begin{itemize}
+	\item \textbf{Vi001} – il prodotto \textit{Token Value} deve essere realizzato nel linguaggio \textit{C\#} ed utilizzare \textit{PostgreSQL} per il salvataggio persistente dei dati.
+	\item \textbf{Vi002} – l’ambiente \textit{testnet} di tipo \textit{private} deve utilizzare il tool \textit{Ganache}.
+	\item \textbf{Vi003} – l’ambiente \textit{testnet} di tipo \textit{public} deve utilizzare il la rete \textit{Ropsten}.
+\end{itemize}
+\pagebreak
+\subsection{Progettazione}
+progettazione
+\subsubsection{Architettura}
+%----------------------------------------------------------------------------------------
+%	FIGURA 8
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]\hfill
+    \centering
+    \includegraphics[width=\textwidth]{tkvalue-arch.png}
+        \caption{Architettura del servizio Token Value}
+    \label{fig:tkvalue-arch}
+\end{figure}
+
+\subsubsection{Tecnologie}
+
+
+\pagebreak
+\subsection{Sviluppo}
+\subsubsection{Metodologia di sviluppo}
+\subsubsubsection{Scrum}
+\subsubsubsection{Development flow}
+
+\pagebreak
+\subsection{Integrazione}
+%----------------------------------------------------------------------------------------
+%	FIGURA 9
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]\hfill
+    \centering
+    \includegraphics[width=\textwidth]{sgame-vpc.png}
+        \caption{Architettura della piattaforma Sgame Pro}
+    \label{fig:sgame-vpc}
+\end{figure}
+
 
 \bibliographystyle{abbrv}
 \bibliography{thesis}
