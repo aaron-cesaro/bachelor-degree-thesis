@@ -1,15 +1,36 @@
 \documentclass[11pt]{thesistemp}
-
 \usepackage[italian]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage[export]{adjustbox}
 \usepackage{subcaption}
 \usepackage{graphicx}
+  \graphicspath{ {../media/} }
 \usepackage{wrapfig}
+\usepackage{color}
+  \definecolor{dkgreen}{rgb}{0,0.6,0}
+  \definecolor{gray}{rgb}{0.5,0.5,0.5}
+  \definecolor{mauve}{rgb}{0.58,0,0.82}
+\usepackage{listings}
+\lstset{
+  frame=tb,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\tiny},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
 
-\graphicspath{ {../media/} }
+\input{../resources/solidity-highlighting.tex}
 
-\usepackage{hyperref}
 
 %----------------------------------------------------------------------------------------
 %	TITLE
@@ -20,18 +41,14 @@
 \redactedby{Aaron Cesaro}
 
 \begin{document}
-
 \maketitle
 \pagebreak
 %----------------------------------------------------------------------------------------
 %	ABSTRACT
 %----------------------------------------------------------------------------------------
-
 \begin{abstract}
-
 Questo documento si presenta come Tesi di Laurea triennale per il corso di laurea in informatica dello studente Aaron Cesaro. In esso \`e contenuta una relazione dettagliata dell’attivit\`a di stage svolta presso l’azienda Sgame SA, situata a Lugano (Svizzera). Durante il tirocinio, della durata complessiva di 300 ore, ogni abiettivo prefissato \`e stato raggiunto con successo, permettendo allo studente di acquisire dettagliate conoscenze sulle tecnologie e le metodologie di sviluppo utilizzate dalla società.
 Particolare enfasi è stata data alla comprensione ed all'utilizzo della blockchain \textit{Ethereum} e di tutti i sevizi di supporto necessari alla corretta integrazione dello stesso all'interno della piattaforma \textit{Sgame Pro}.
-
 \end{abstract}
 
 \tableofcontents
@@ -230,8 +247,11 @@ Il successo di \textit{Ethereum} (e la più grande differenza con \textit{Bitcoi
     \includegraphics[width=\textwidth]{sgamepro-logo.png}
     \label{fig:sgamepro}
 \end{figure}
+
+\subsection{Overview}
+
 \textit{Sgame Pro} è un aggregatore di \textit{mobile games} di proprietà di \textit{Sgame SA}, con sede a Lugano, Svizzera.\\
-In sviluppo dal 2016, Sgame Pro ha lanciato con successo la sua \textit{Alpha version} nel 2017, raggiungendo oltre 50.000 download senza nessuna spesa di marketing.\\
+In sviluppo dal 2016, Sgame Pro ha lanciato con successo la sua \textit{Alpha version} nel 2017, raggiungendo oltre 50.000 download senza alcuna spesa di marketing.\\
 \textit{Sgame Pro} è interamente focalizzato sull'industria dei \textit{mobile games} e ha sviluppato due importanti innovazioni tecniche:
 \begin{itemize}
 	\item Consentire ai giocatori di essere remunerati con un nuovo utility token (\textit{SGM}) semplicemente giocando con il proprio cellulare ai titoli proposti;
@@ -242,7 +262,112 @@ All'interno dell'applicazione i giocatori non solo avranno l'opportunità di tro
 Quest'ultima innovazione è davvero dirompente dato che il 78\% del mercato dei giochi mobile è single player, mentre la maggior parte delle entrate derivano da giochi multiplayer.\\
 Gli \textit{Influencers} di \textit{Sgame Pro} includono \textit{Pewdiepie}, \textit{Tweakbox} e molti altri, con oltre 80 milioni di seguaci altamente coinvolti e sparsi in tutto il mondo.\\ 
 
+\subsection{Funzionalità principali}
 
+\subsubsection{Challenges}
+
+Le \textit{Challenges} sono una delle caratteristiche principali di \textit{Sgame Pro}.\\
+Esse consentono infatti di sfidare gli altri giocatori all'interno della piattaforma e di guadagnare gli \textit{SGM} messi in palio per la sfida.\\
+Le \textit{challenges} permettono inoltre di trasformare qualunque gioco da semplice \textit{single play} a \textit{multiplayer}, dando agli utenti la possibilità di sfidarsi in modalità asincrona.\\
+
+%----------------------------------------------------------------------------------------
+%	FIGURA 6
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]\hfill
+    \centering
+    \includegraphics[width=\textwidth]{challenges.png}
+        \caption{Funzionlità Challenges}
+    \label{fig:challenges}
+\end{figure}
+All'interno dell'applicazione esistono due diverse tipologie di sfide:
+\begin{itemize}
+	\item \textbf{Private Challenges}: le quali consentono agli utenti di sfidarsi tra loro, scegliendo tutti i partecipanti alla competizione direttamente tra i propri \textit{Friends}, e mettendo in palio l'importo in \textit{SGM} desiderato;
+	\item \textbf{Public Challenges}: le quali invece danno la possibilità di creare una sfida \textit{ad-hoc} a cui chiuque può partecipare, specificando il numero minimo/massimo di utenti necessario affinchè la sfida possa avere luogo.
+\end{itemize}
+\pagebreak
+
+\subsubsection{Leaderboard}
+
+La \textit{Leaderboard} è la classifica globale di punteggi ottenuti dagli utenti in uno specifico titolo.\\
+Questa funzionalità consente ai giocatori di confrontare le proprie prestazioni con quelle degli avversari.\\
+L'innovativo approccio di Sgame Pro a questa "classica" funzionalità consiste nell'esporre:
+\begin{itemize}
+	\item \textbf{Classifiche comuni tra iOS ed Android}: i giocatori possono finalmente competere tra loro indipendentemente dal sistema operativo utilizzato;
+	\item \textbf{Classifiche premiate}: i giocatori che battono particolari record od obiettivi vengono premiati in \textit{SGM}.
+\end{itemize}
+
+\subsubsection{User Profile}
+%----------------------------------------------------------------------------------------
+%	FIGURA 7
+%----------------------------------------------------------------------------------------
+\begin{wrapfigure}{r}{0.2\textwidth}
+	\vspace{-31pt}
+	\begin{center}
+    	\includegraphics[width=0.2\textwidth]{user-profile.png}
+  	\end{center}
+  	\vspace{-10pt}
+  	\caption{Profilo}
+  	\label{fig:user-profile}
+  	\vspace{-60pt}
+\end{wrapfigure}
+Ogni giocatore o \textit{influencer} avrà il proprio profilo utente dedicato contenente una panoramica di punteggi, tempi di gioco ed altre statistiche utili.\\
+Il profilo utente contiene inoltre le seguenti informazioni:
+\begin{itemize}
+	\item livello dell'utente;
+	\item numero di amici e \textit{followers};
+	\item statistiche delle \textit{challenges};
+	\item titoli giocati di recente;
+	\item dati sugli avversari;
+	\item dattagli sui guadagni.
+\end{itemize}
+\pagebreak
+
+\subsubsection{Marketplace}
+
+La sezione \textit{Marketplace} permette agli utenti della piattaforma \textit{Sgame Pro} di acquistare \textit{digital goods} (coupons, free subscriptions etc..) direttamente all'interno dell'applicazione.\\
+\`E inoltre possibile fissare dei "\textit{target}", ossia scegliere un particolare oggetto all'interno del \textit{marketplace} e porsi come obiettivo il raggiungimento della cifra necessaria al suo acquisto.
+
+\subsubsection{Wallet}
+
+All'interno della funzionalità \textit{Wallet} l'utente può sempre tenere sotto controllo il suo patrimonio ed avere una panoramica dettagliata del flusso di cassa (in \textit{SGM}) del suo account.\\
+\\
+Da questa sezione è inoltre possibile trasformare gli \textit{SGM} guadagnati all'interno della piattaforma in criptovaluta fruibile all'interno della rete \textit{Ethereum}.\\
+\`E infatti tramite questa funzinalità che entrano in gioco la \textit{blockchain} e tutti i servizi di supporto ad essa associati.
+\pagebreak
+
+\subsection{Sgame Pro ed Ethereum}
+
+L'idea iniziale alla base dell'integrazione di \textit{Ethereum} all'interno della piattaforma \textit{Sgame Pro} prevedeva un'applicazione completamente decentralizzata (\textit{full decentralized}) a cui ogni movimento di \textit{SGM} corrispondeva una transazione su \textit{Ethereum}.\\\\
+Questo approccio avrebbe portato numerosi benefici a livello di \textit{trust}, ma sarebbe stato altamente insostenibile per il \textit{business model} della società.\\
+Infatti, come già detto, ogni transazione su \textit{Ethereum} richiede una determinata quantità di \textit{gas}, necessaria per l'esecuzione dello \textit{smart contract}, che deve essere aggiunta all'ammontare che si desidera trasferire.
+In altre parole il costo di ogni transazione sarebbe stato maggiore dell'ammontare scambiato durante la transazione stessa.\\
+Si è deciso quindi di utilizzare un sistema di remunerazione interno "classico", ossia tramite assegnazione a livello di database, dando però la possibilità agli utenti di transferire i propri guadagni sul proprio \textit{wallet} personale qualora lo desiderassero.
+
+\subsubsection{SGaMe Token}
+
+\textit{Ethereum} è stato creato per essere un vero e proprio ambiente di sviluppo, infatti esso può essere utilizzato, tramite la creazione di appositi \textit{Smart Contract}, per creare criptovalute che si appoggino sulla sua \textit{currency} base, ossia l'\textit{Ether}.\\
+Le criptovalute derivate da \textit{Ether}, dette anche \textit{token}, sono principalmente state utilizzate per l'attuazione delle \textit{ICO} (\textit{Initial Coin Offer}), ossia \textit{crowdfundig} attuati tramite la vendita di particolari criptovalute, utilizzate come finanziamenti al posto della moneta tradizionale (\textit{FIAT}).\\
+Come già citato l'\textit{SGM} è il token utilizzato dalla piattaforma \textit{Sgame Pro}.\\
+Esso è stato creato allo scopo di uniformare quelli che vengono definiti \textit{In-App purchase}, permettendo così agli utenti di poter acquistare qualunque tipo di beneficio, all'interno dei titoli presenti nella piattaforma, con una unica valuta.\\\\
+L'\textit{SGM} si appoggia su quello che formalmente \textit{Ethereum} definisce lo \textit{Standard ERC-20}, ossia un'interfaccia che gli \textit{Smart Contract} possono implementare nel caso in cui si intenda utilizzare alcune tipologie di servizi offerti da \textit{Ethereum.}
+%----------------------------------------------------------------------------------------
+%	ERC-20 STANDARD
+%----------------------------------------------------------------------------------------
+\begin{lstlisting}[language=Solidity]
+contract ERC20Interface {
+   function totalSupply() public view returns (uint);
+   function balanceOf(address tokenOwner) public view returns (uint balance);
+   function allowance(address tokenOwner, address spender) public view returns (uint remaining);
+   function transfer(address to, uint tokens) public returns (bool success);
+   function approve(address spender, uint tokens) public returns (bool success);
+   function transferFrom(address from, address to, uint tokens) public returns (bool success);
+
+   event Transfer(address indexed from, address indexed to, uint tokens);
+   event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
+}
+\end{lstlisting}
+L'interfaccia \textit{ERC-20} funge da contratto per il set minimo di funzionalità che si intende mettere a disposizione dopo la creazione (\textit{issuing}) ti un token derivato da \textit{Ethereum}.\\
+La scelta di aderire a questo standard è stata guidata dall'altissima compatibilità con i vari \textit{Exchange} presenti oggigiorno sul mercato.
 
 \bibliographystyle{abbrv}
 \bibliography{thesis}

@@ -1,9 +1,6 @@
-% Template for SWE reports
-
+% Template for thesis
 \ProvidesClass{thesistemp}[2019/01/19 Aaron Cesaro Thesis Template]
 \NeedsTeXFormat{LaTeX2e}
-
-\usepackage{graphicx}
 
 % Custom variables
 \newcommand{\subtitle}[1]{\def\@subtitle{#1}} % Optional
