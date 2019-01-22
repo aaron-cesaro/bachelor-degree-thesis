@@ -422,7 +422,6 @@ Viene di seguito riportata la notazione che verrà utilizzata per l’identifica
 	\item \textbf{Ob001} – il prodotto \textit{Token Value} deve raccogliere i dati sui valori delle criptovalute tramite chiamata \textit{REST API} al servizio cryptocompare.
 	\item \textbf{Ob002} – il prodotto \textit{Token Value} deve salvare dati persistenti sia sul valore attuale del token che sullo storico dei valori richiesti.
 	\item \textbf{Ob003} – il prodotto \textit{Token Value} deve essere corredato da documentazione.
-	\item \textbf{Ob004} – il prodotto \textit{Token Value} deve poter essere consultabile tramite interfaccia grafica.
 	\item \textbf{Ob004} – l’ambiente testnet di tipo private deve utilizzare uno script di \textit{auto-deploy} per lo \textit{Smart Contract}.
 \end{itemize}
 \textbf{Desiderabili}:
@@ -437,9 +436,15 @@ Viene di seguito riportata la notazione che verrà utilizzata per l’identifica
 	\item \textbf{Vi003} – l’ambiente \textit{testnet} di tipo \textit{public} deve utilizzare il la rete \textit{Ropsten}.
 \end{itemize}
 \pagebreak
-\subsection{Progettazione}
-progettazione
-\subsubsection{Architettura}
+
+\subsection{Architettura}
+
+L'architettura del servizio riprende fedelmente il modello utilizzato dagli altri servizi relativi ad \textit{Ethereum} sviluppati sulla piattaforma.\\\\
+Ogni servizio è composto da due moduli separati:
+\begin{itemize}
+	\item \textbf{Public API}: interfaccia pubblica che espone \textit{API} di tipo \textit{REST} all'interno dell'ambiente stesso;
+	\item \textbf{Core}: \textit{business logic} del servizio. Si occupa delle richieste verso i servizi esterni e dell'interfacciamento con il database. Nel modulo sono quindi compresi sia il \textit{Business Layer} che il \textit{Data Layer}.
+\end{itemize}
 %----------------------------------------------------------------------------------------
 %	FIGURA 8
 %----------------------------------------------------------------------------------------
@@ -449,8 +454,20 @@ progettazione
         \caption{Architettura del servizio Token Value}
     \label{fig:tkvalue-arch}
 \end{figure}
+Grazie a questa struttura a \textit{layers} si garantisce l'impossibilità di comunicazione diretta con la logica del servizio ed una netta separazione delle responsabilità all'interno del servizio stesso.\\
+Il servizio \textit{Token Value} si interfaccia poi con il resto del backend dell'applicazione (quello che la società chiama \textit{Mobile API}), e con \textit{TX}, ossia il servizio che si occupa della comunicazione diretta con lo \textit{Smart Contract} interfacciandosi alla \textit{blockchain Ethereum}.
+
+\subsection{Progettazione}
+
+
 
 \subsubsection{Tecnologie}
+
+Per il rispetto del requisito [\textbf{Vi001}] la scelta del linguaggio di programmazione da utilizzare è inevitabilemente ricaduta su \textit{C\#}.\\
+Questo requisito è dovuto al fatto che l'intera piattaforma è stata sviluppata con la tecnologia \textit{.NET Framework} di \textit{Microsoft} e poggia sul \textit{Cloud Azure}, anch'esso sviluppato e mantenuto dalla stessa \textit{Microsoft}.\\
+Questa scelta ha reso possible una perfetta integrazione del servizio con tutte le estensioni (\textit{Insight, Metrics etc.. }) e funzionalità aggiuntive messe a disposizione dalla piattaforma.\\\\
+Lo stesso requisito ha inoltre imposto la creazione del database tramite l'utilizzo di \textit{PostgreSQL}. Questa è stata presa semplicemente per coerenza tecnologica con gli altri servizi che già utilizzavano la stessa tipologia di database.
+\pagebreak
 
 
 \pagebreak
