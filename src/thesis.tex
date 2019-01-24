@@ -455,11 +455,24 @@ Ogni servizio è composto da due moduli separati:
     \label{fig:tkvalue-arch}
 \end{figure}
 Grazie a questa struttura a \textit{layers} si garantisce l'impossibilità di comunicazione diretta con la logica del servizio ed una netta separazione delle responsabilità all'interno del servizio stesso.\\
-Il servizio \textit{Token Value} si interfaccia poi con il resto del backend dell'applicazione (quello che la società chiama \textit{Mobile API}), e con \textit{TX}, ossia il servizio che si occupa della comunicazione diretta con lo \textit{Smart Contract} interfacciandosi alla \textit{blockchain Ethereum}.
+Il servizio \textit{Token Value} si interfaccia poi con il resto del backend dell'applicazione (quello che la compagnia ha deciso di chiamare \textit{Mobile API}), e con \textit{TX}, ossia il servizio che si occupa della comunicazione diretta con lo \textit{Smart Contract} interfacciandosi alla \textit{blockchain Ethereum}.
 
 \subsection{Progettazione}
-
-
+Viene di seguito esposto il diagramma delle classi (\textit{UML 2.0}) del servizio \textit{Token value}.\\
+All'interno nel servizio è possibile mappare i due moduli riportati nello schema dell'architettura nel seguente modo:
+\begin{itemize}
+	\item \textbf{Public API} contiene la classe \textit{ValueController}, la quale funge da interfaccia interna e viene richiamata da \textit{Mobile API};
+	\item \textbf{Core} comprende tutto il resto del servizio, ossia i \textit{Managers} ed i \textit{Repository}, necessari all'orchestrazione ed alla comunicazione con il database rispettivamente.
+\end{itemize}
+%----------------------------------------------------------------------------------------
+%	FIGURA 9
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]\hfill
+    \centering
+    \includegraphics[width=\textwidth]{TkUMLClassDiagram.png}
+        \caption{Diagramma delle classi del servizio Token Value}
+    \label{fig:TkUMLClassDiagram}
+\end{figure}
 
 \subsubsection{Tecnologie}
 
@@ -467,14 +480,41 @@ Per il rispetto del requisito [\textbf{Vi001}] la scelta del linguaggio di progr
 Questo requisito è dovuto al fatto che l'intera piattaforma è stata sviluppata con la tecnologia \textit{.NET Framework} di \textit{Microsoft} e poggia sul \textit{Cloud Azure}, anch'esso sviluppato e mantenuto dalla stessa \textit{Microsoft}.\\
 Questa scelta ha reso possible una perfetta integrazione del servizio con tutte le estensioni (\textit{Insight, Metrics etc.. }) e funzionalità aggiuntive messe a disposizione dalla piattaforma.\\\\
 Lo stesso requisito ha inoltre imposto la creazione del database tramite l'utilizzo di \textit{PostgreSQL}. Questa è stata presa semplicemente per coerenza tecnologica con gli altri servizi che già utilizzavano la stessa tipologia di database.
-\pagebreak
-
 
 \pagebreak
 \subsection{Sviluppo}
+Per comprendere a pieno l'andamento dello sviluppo del servizio è necessario innanzitutto dare una panoramica sia delle metodologie e dei \textit{tools} utilizzati dalla società che del \textit{Flow di sviluppo} imposto a tutti gli sviluppatori.
+
 \subsubsection{Metodologia di sviluppo}
+Data l'elevata preparazione tecnica e professionalità degli sviluppatori presenti nel \textit{team} di \textit{Sgame Pro} e vista la necessità di continui miglioramenti dell'applicazione la società ha deciso di utilizzare una metodologia di sviluppo \textit{Agile} e, più in particolare, \textit{Scrum}.
+
 \subsubsubsection{Scrum}
-\subsubsubsection{Development flow}
+\subsubsection{Development flow}
+La società \textit{Sgame SA} ha richiesto che il \textit{flow} di lavoro, durante l'implementazione di nuove \textit{features} di uno stesso servizio debba sempre utilizzare la seguente \textit{pipeline}:
+\begin{enumerate}
+	\item \textbf{Development};
+	\item \textbf{UAT};
+	\item \textbf{Staging};
+	\item \textbf{Production}.
+\end{enumerate}
+La struttura sopra esposta segue fedelmente la struttura dei principali \textit{branch} riportata sull'apposito \textit{repository} presente in \textit{GitHub}.\\
+Ad ogni punto sopra elencato corrispondono ambienti di sviluppo differenti, ognuno con uno scopo ben definito.\\\\
+L'ambiente di \textit{Development} è dedicato esclusivamente all'implementazione di servizi, funzionalità e correzione degli errori (\textit{bug fix}).\\\\
+\textit{UAT}, acronimo per \textit{User Acceptance Testing}, è utilizzato per il testing interno delle funzionalità e per l'approvazione interna del \textit{Product Manager}.\\\\
+L'ambiente di \textit{Staging} è dedicato invece al \textit{Beta Testing}, ossia a test effettuati da personale esterno alla compagnia. Questo risulta estremamente efficace nello sviluppo di applicazioni mobile in quanto l'elevato numero di dispositivi presenti nel mercato richiede accertamenti (soprattutto lato \textit{UI}) sulla corretta visualizzazione e funazionamento delle nuove funzionalità.\\\\
+\textit{Production} è invece l'ambiente "esterno", ossia dove l'applicazione viene utilizzata dagli utenti di tutto il mondo.
+
+
+\subsubsubsection{Processo di implementazione delle features}
+Una volta iniziato il lavoro su una nuova \textit{feature} del servizio è necessario innanzitutto creare un nuovo \textit{branch} il cui nome deve tassativamente seguire la seguente struttura:\\\\
+\textit{Iniziali\_dello\_sviluppatore + \_nome\_feature}\\\\
+Tutti i \textit{commit} riguardanti la stessa \textit{feature} andranno sempre ad utilizzare questo nuovo branch.\\
+Una volta terminata, testata e validata la funzionalità o l'\textit{improvement} è necessario fare lo \textit{stash} di tutti i commit verso un unico commit che prenderà (come \textit{commit message}) il nome della \textit{feature} stessa.\\
+Questa andrà quindi inserita sul \textit{branch} di \textit{development} dopo aver effettuato il \textit{rebase}.\\\\
+Il procedimento è invece differente quando, una volta implementata e testata una nuova funzionalità sull'ambiente di \textit{development}, questa vada inserita sull'ambiente di \textit{UAT}, \textit{Staging} e \textit{Production}.\\
+L'unico modo per modificare il codice presente in uno di questi tre ambienti dedicati è tramite \textit{pull request}, il quale titolo deve essere tassativamente il nome della \textit{feature} che si va ad inserire, ed si rivela assolutamente necessaria agli altri membri del team per effettuare \textit{Code review} sul codice che si intende inserire.\\
+Questo permette un controllo efficace sul codice in ingresso nei vari ambienti tramite gli appositi sistemi di \textit{CI/CD}.
+
 
 \pagebreak
 \subsection{Integrazione}
