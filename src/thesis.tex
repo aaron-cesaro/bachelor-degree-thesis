@@ -342,7 +342,7 @@ Infatti, come già detto, ogni transazione su \textit{Ethereum} richiede una det
 In altre parole il costo di ogni transazione sarebbe stato maggiore dell'ammontare scambiato durante la transazione stessa.\\
 Si è deciso quindi di utilizzare un sistema di remunerazione interno "classico", ossia tramite assegnazione a livello di database, dando però la possibilità agli utenti di transferire i propri guadagni sul proprio \textit{wallet} personale qualora lo desiderassero.
 
-\subsubsection{SGaMe Token}
+\subsubsection{Sgame Token}
 
 \textit{Ethereum} è stato creato per essere un vero e proprio ambiente di sviluppo, infatti esso può essere utilizzato, tramite la creazione di appositi \textit{Smart Contract}, per creare criptovalute che si appoggino sulla sua \textit{currency} base, ossia l'\textit{Ether}.\\
 Le criptovalute derivate da \textit{Ether}, dette anche \textit{token}, sono principalmente state utilizzate per l'attuazione delle \textit{ICO} (\textit{Initial Coin Offer}), ossia \textit{crowdfundig} attuati tramite la vendita di particolari criptovalute, utilizzate come finanziamenti al posto della moneta tradizionale (\textit{FIAT}).\\
@@ -395,9 +395,6 @@ Proprio per queste ragioni il servizio utilizza logiche estremamente semplici e 
 	\item \textbf{Terza Settimana}(42,5 ore) – Sviluppo della logica di acquisizione e memorizzazione persistente dei valori necessari all’utilizzo del servizio TokenValue.
 	\item \textbf{Quarta Settimana}(42,5 ore) – Debugging e sviluppo della documentazione del servizio TokenValue. Entro il termine della settimana il tirocinante dovrà aver terminato e documentato il servizio sviluppato.
 	\item \textbf{Quinta Settimana}(42,5 ore) – Creazione dell’interfaccia grafica necessaria agli analisti di Sgame per la visualizzazione dei valori di mercato della criptovaluta target.
-	\item \textbf{Sesta Settimana}(42,5 ore) – Finalizzazione, bug fixing e documentazione dell’interfaccia grafica di TokenValue;
-	\item \textbf{Settima Settimana}(42,5 ore) – Creazione dell’ambiente di testing su AWS EC2 tramite l’utilizzo del tool Ganache ed automazione del deploy dello Smart Contract utilizzato dalla piattaforma Sgame; Utilizzo della rete pubblica Ropsten per l'advanced testing dello Smart Contract necessario al funzionamento della piattaforma Sgame;
-	\item \textbf{Ottava Settimana}(2,5 ore) – Presentazione agli Stakeholders del lavoro svolto sul servizio TokenValue, comprensivo di documentazione e giustificazione delle soluzioni adottate dal tirocinante.
 \end{itemize}
 \pagebreak
 
@@ -422,7 +419,6 @@ Viene di seguito riportata la notazione che verrà utilizzata per l’identifica
 	\item \textbf{Ob001} – il prodotto \textit{Token Value} deve raccogliere i dati sui valori delle criptovalute tramite chiamata \textit{REST API} al servizio cryptocompare.
 	\item \textbf{Ob002} – il prodotto \textit{Token Value} deve salvare dati persistenti sia sul valore attuale del token che sullo storico dei valori richiesti.
 	\item \textbf{Ob003} – il prodotto \textit{Token Value} deve essere corredato da documentazione.
-	\item \textbf{Ob004} – l’ambiente testnet di tipo private deve utilizzare uno script di \textit{auto-deploy} per lo \textit{Smart Contract}.
 \end{itemize}
 \textbf{Desiderabili}:
 \begin{itemize}
@@ -432,8 +428,6 @@ Viene di seguito riportata la notazione che verrà utilizzata per l’identifica
 \textbf{Vincolo}:
 \begin{itemize}
 	\item \textbf{Vi001} – il prodotto \textit{Token Value} deve essere realizzato nel linguaggio \textit{C\#} ed utilizzare \textit{PostgreSQL} per il salvataggio persistente dei dati.
-	\item \textbf{Vi002} – l’ambiente \textit{testnet} di tipo \textit{private} deve utilizzare il tool \textit{Ganache}.
-	\item \textbf{Vi003} – l’ambiente \textit{testnet} di tipo \textit{public} deve utilizzare il la rete \textit{Ropsten}.
 \end{itemize}
 \pagebreak
 
@@ -486,10 +480,26 @@ Lo stesso requisito ha inoltre imposto la creazione del database tramite l'utili
 Per comprendere a pieno l'andamento dello sviluppo del servizio è necessario innanzitutto dare una panoramica sia delle metodologie e dei \textit{tools} utilizzati dalla società che del \textit{Flow di sviluppo} imposto a tutti gli sviluppatori.
 
 \subsubsection{Metodologia di sviluppo}
-Data l'elevata preparazione tecnica e professionalità degli sviluppatori presenti nel \textit{team} di \textit{Sgame Pro} e vista la necessità di continui miglioramenti dell'applicazione la società ha deciso di utilizzare una metodologia di sviluppo \textit{Agile} e, più in particolare, \textit{Scrum}.
+Data l'elevata preparazione tecnica e professionalità degli sviluppatori presenti nel \textit{team} di \textit{Sgame Pro} e vista la necessità di continui e rapidi miglioramenti dell'applicazione la società ha deciso di utilizzare una metodologia di sviluppo \textit{Agile} e, più in particolare, \textit{Scrum}.
 
 \subsubsubsection{Scrum}
-\subsubsection{Development flow}
+Il team di Sgame Pro utilizza il framework \textit{Scrum}, ossia un framework Agile, iterativo ed incrementale, per lo sviluppo di progetti complessi.\\
+\textit{Scrum} si basa su tre pilastri fondamentali:
+\begin{itemize}
+	\item \textbf{Trasparenza}: I risultati dei precessi devono essere compresi dagli Stakeholders, ossia dagli individui direttamente responsabili del risultato del prodotto;
+	\item \textbf{Verifica}: Le verifiche devono essere effettuate con bassa frequenza e da persone con competenze tecniche;
+	\item \textbf{Adattamento}: Nel caso in cui il risultato di una o più verifiche identifichi un livello di qualità insoddisfacente, il processo di sviluppo deve essere modificato il prima possibile, al fine di riallineare il processo alle aspettative.
+\end{itemize}
+In \textit{Scrum} esiste ciò che viene formalmente definito lo \textit{Scrum Team}, il quale è formato da tre figure fondamentali:
+\begin{itemize}
+	\item \textbf{Product Owner}: responsabile della massimizzazione del valore del prodotto sviluppato dal \textit{Development Team};
+	\item \textbf{Development Team}: formato dalle figure professionali che sviluppano effettivamente il prodotto;
+	\item \textbf{Scrum Master}: coordina e supporta il \textit{Development Team}.
+\end{itemize}
+Durante il tirocinio il mio ruolo si posizionava all'interno del \textit{Development Team}, il quale veniva coordinato e supportato dallo \textit{Scrum Master} ed i quali \textit{output} venivano giudicati direttamente dal \textit{Product Owner}.\\
+Il rispetto e l'attuazione di questo modello si riflette perfettamente nel processo di sviluppo aziendale, trattato dettagliamente nella sezione successiva.
+
+\subsubsection{Processo di implementazione e rilascio}
 La società \textit{Sgame SA} ha richiesto che il \textit{flow} di lavoro, durante l'implementazione di nuove \textit{features} di uno stesso servizio debba sempre utilizzare la seguente \textit{pipeline}:
 \begin{enumerate}
 	\item \textbf{Development};
@@ -501,33 +511,167 @@ La struttura sopra esposta segue fedelmente la struttura dei principali \textit{
 Ad ogni punto sopra elencato corrispondono ambienti di sviluppo differenti, ognuno con uno scopo ben definito.\\\\
 L'ambiente di \textit{Development} è dedicato esclusivamente all'implementazione di servizi, funzionalità e correzione degli errori (\textit{bug fix}).\\\\
 \textit{UAT}, acronimo per \textit{User Acceptance Testing}, è utilizzato per il testing interno delle funzionalità e per l'approvazione interna del \textit{Product Manager}.\\\\
-L'ambiente di \textit{Staging} è dedicato invece al \textit{Beta Testing}, ossia a test effettuati da personale esterno alla compagnia. Questo risulta estremamente efficace nello sviluppo di applicazioni mobile in quanto l'elevato numero di dispositivi presenti nel mercato richiede accertamenti (soprattutto lato \textit{UI}) sulla corretta visualizzazione e funazionamento delle nuove funzionalità.\\\\
+L'ambiente di \textit{Staging} è dedicato invece al \textit{Beta Testing}, ossia a test effettuati da personale esterno alla compagnia. Questo risulta estremamente efficace nello sviluppo di applicazioni mobile in quanto l'elevato numero di dispositivi presenti nel mercato richiede accertamenti (soprattutto lato \textit{UI}) sulla corretta visualizzazione e funazionamento delle nuove \textit{features}.\\\\
 \textit{Production} è invece l'ambiente "esterno", ossia dove l'applicazione viene utilizzata dagli utenti di tutto il mondo.
-
-
-\subsubsubsection{Processo di implementazione delle features}
-Una volta iniziato il lavoro su una nuova \textit{feature} del servizio è necessario innanzitutto creare un nuovo \textit{branch} il cui nome deve tassativamente seguire la seguente struttura:\\\\
-\textit{Iniziali\_dello\_sviluppatore + \_nome\_feature}\\\\
-Tutti i \textit{commit} riguardanti la stessa \textit{feature} andranno sempre ad utilizzare questo nuovo branch.\\
-Una volta terminata, testata e validata la funzionalità o l'\textit{improvement} è necessario fare lo \textit{stash} di tutti i commit verso un unico commit che prenderà (come \textit{commit message}) il nome della \textit{feature} stessa.\\
-Questa andrà quindi inserita sul \textit{branch} di \textit{development} dopo aver effettuato il \textit{rebase}.\\\\
-Il procedimento è invece differente quando, una volta implementata e testata una nuova funzionalità sull'ambiente di \textit{development}, questa vada inserita sull'ambiente di \textit{UAT}, \textit{Staging} e \textit{Production}.\\
-L'unico modo per modificare il codice presente in uno di questi tre ambienti dedicati è tramite \textit{pull request}, il quale titolo deve essere tassativamente il nome della \textit{feature} che si va ad inserire, ed si rivela assolutamente necessaria agli altri membri del team per effettuare \textit{Code review} sul codice che si intende inserire.\\
-Questo permette un controllo efficace sul codice in ingresso nei vari ambienti tramite gli appositi sistemi di \textit{CI/CD}.
-
-
-\pagebreak
-\subsection{Integrazione}
 %----------------------------------------------------------------------------------------
 %	FIGURA 9
 %----------------------------------------------------------------------------------------
-\begin{figure}[h]\hfill
+\begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{sgame-vpc.png}
-        \caption{Architettura della piattaforma Sgame Pro}
-    \label{fig:sgame-vpc}
+    \includegraphics[scale=.85]{dev-flow.png}
+        \caption{Processo di implementazione e rilascio in Sgame}
+    \label{fig:dev-flow}
+\end{figure}
+\subsubsubsection{Processo di implementazione delle features}
+Una volta iniziato il lavoro su una nuova \textit{feature} del servizio è necessario innanzitutto creare un nuovo \textit{branch} il cui nome deve tassativamente seguire la seguente struttura:\\\\
+\textit{iniziali\_dello\_sviluppatore + nome\_feature}\\\\
+%----------------------------------------------------------------------------------------
+%	FIGURA 10
+%----------------------------------------------------------------------------------------
+\begin{wrapfigure}{r}{0.35\textwidth}
+	\vspace{-50pt}
+	\begin{center}
+    	\includegraphics[width=0.4\textwidth]{git-flow.png}
+  	\end{center}
+  	\vspace{-10pt}
+  	\caption{Implementazione di una feature}
+  	\label{fig:git-flow}
+  	\vspace{-9pt}
+\end{wrapfigure}
+Tutti i \textit{commit} riguardanti la stessa \textit{feature} andranno sempre ad utilizzare questo nuovo branch.\\
+Una volta terminata, testata e validata la funzionalità o l'\textit{improvement} è necessario fare lo \textit{stash} di tutti i commit verso un unico commit che avrà (come \textit{commit message}) il nome della \textit{feature} stessa.\\
+Questa andrà quindi inserita sul \textit{branch} di \textit{development} dopo aver effettuato il \textit{rebase}.\\\\
+Il procedimento è invece differente quando, una volta implementata e testata una nuova funzionalità sull'ambiente di \textit{development}, questa vada inserita sull'ambiente di \textit{UAT}, \textit{Staging} e \textit{Production}.\\
+L'unico modo per modificare il codice presente in uno di questi tre ambienti dedicati è tramite \textit{pull request}, il quale titolo deve essere tassativamente il nome della \textit{feature} che si va ad inserire.\\
+Il rispetto di questo processo si rivela assolutamente necessario per permettere altri membri del team di effettuare \textit{Code review} sul codice che si intende inserire.\\
+Questo permette un controllo efficace sul codice in ingresso nei vari ambienti tramite gli appositi sistemi di \textit{CI/CD}.
+
+\pagebreak
+\subsection{Integrazione}
+Una volta completata l'implementazione del servizio \textit{Token Value} ed i relativi test funzinali e di unità, è stato necessario integrare il servizio con l'infrastruttura già esistente della piattaforma \textit{Sgame Pro}.\\\\
+L'intero \textit{backend} dell'applicazione utilizza ciò che viene definito \textit{Cloud Computing}, ossia un sistema per la distribuzione di servizi di calcolo (\textit{server}), le risorse di archiviazione (\textit{database}) e reti, erogata tramite internet.
+Il \textit{Cloud Computing} ha il vantaggio di offrire risorse estremamente flessibili ed un livello di scalabilità estremamente performante.\\\\
+Il processo di integrazione è stato intrapreso dal \textit{DevOps} del team, seguendo le seguenti fasi:
+\begin{itemize}
+	\item creazione dell'istanza;
+	\item configurazione dell'istanza;
+	\item \textit{linking} con i \textit{repository} presenti su \textit{GitHub} per sfruttare la \textit{CI/CD}.
+\end{itemize}
+Dei tre passi sopra elencati solo l'ultimo ha riguardato da vicino il mio lavoro.\\
+Infatti, tramite la \textit{CI/CD}, configurata con \textit{Microsoft Azure} e collegata direttamente ai \textit{repository} su \textit{GitHub}, il codice commitato veniva compilato, testato (tramite l'uso di test automatizzati) e pubblicato in forma completamente automatica.\\
+Questo processo, oltre a velocizzare notevolmente lo sviluppo, ha permesso a me ed agli altri membri del team di testare il servizio fin da subito e di raccogliere fin da subito i \textit{feedback} dei \textit{Beta Testers}, oltre a quelli del \textit{Product Owner}.
+%----------------------------------------------------------------------------------------
+%	FIGURA 11
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.59]{ci-cd.png}
+        \caption{Processo di CI/CD}
+    \label{fig:ci-cd}
 \end{figure}
 
+\section{Ethereum Testnet}
+
+\subsection{Overview}
+
+Oltre allo sviluppo del servizio \textit{Token Value} al tirocinante è stato chiesto di testare integralmente le funzinalità dello \textit{Smart Contract} utilizzato dallo piattaforma.\\
+Per farlo è stato necessario creare innanzitutto quella che viene definita una \textit{TestRPC}, ossia una rete locale che utilizza gli stessi protocolli della rete principale di \textit{Ethereum}, ma in cui le transazioni non richiedono l'esborso di denaro, ossia il pagamento di \textit{gas}.\\
+In secondo luogo è stata invece configurata una \textit{Testnet Ropsten}, ossia una rete remota che, oltre ad utilizzare gli stessi protocolli della \textit{Mainnet} (\textit{Ethereum}), emula fedelmente le tempistiche ed i costi delle transazioni, ma la criptovaluta necessaria al pagamento delle \textit{gas fee} ha valore zero.\\
+%----------------------------------------------------------------------------------------
+%	FIGURA 12
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.28]{testnet-diag.png}
+        \caption{Processo di sviluppo, test e deploy in Ethereum}
+    \label{fig:testnet-diag}
+\end{figure}
+\linebreak
+Grazie all'ausilio di queste reti è quindi possibile testare lo \textit{Smart Contract}, verificandone ogni singola funzione per assicurarsi che il modello di business si rifletta sull'implementazione dello \textit{Smart Contract} stesso.
+\pagebreak
+
+\subsection{Pianificazione}
+
+\begin{itemize}
+	\item \textbf{Sesta Settimana}(42,5 ore) – Studio del servizio \textit{TX} e creazione dei diagrammi necessari a dimostrarne la comprensione;
+	\item \textbf{Settima Settimana}(42,5 ore) – Creazione dell’ambiente di testing su \textit{Microsoft Azure} tramite l’utilizzo del tool \textit{Ganache} ed automazione del deploy dello \textit{Smart Contract} utilizzato dalla piattaforma Sgame; Utilizzo della rete pubblica \textit{Ropsten} per l'advanced testing dello \textit{Smart Contract} necessario al funzionamento della piattaforma \textit{Sgame Pro};
+	\item \textbf{Ottava Settimana}(2,5 ore) – Presentazione agli \textit{Stakeholders} del lavoro svolto sul servizio \textit{Token Value}, comprensivo di documentazione e giustificazione delle soluzioni adottate dal tirocinante.\\
+Presentazione agli Stakeholders del lavoro svolto sulle \textit{Testnet} ed esposizione dei risultati dei test.
+\end{itemize}
+\pagebreak
+\subsection{Analisi dei requisiti}
+
+Viene di seguito riportata la specifica dei requisiti richiesti per lo sviluppo e l'integrazione della rete di test per lo \textit{Smart Contract} sviluppato per la piattaforma \textit{Sgame Pro}.
+
+\subsubsection{Specifica dei requisiti}
+
+\textbf{Obbligatori}:
+\begin{itemize}
+	\item \textbf{Ob004} – l’ambiente testnet di tipo private deve utilizzare uno script di \textit{auto-deploy} per lo \textit{Smart Contract}.
+\end{itemize}
+\textbf{Vincolo}:
+\begin{itemize}
+	\item \textbf{Vi002} – l’ambiente \textit{testnet} di tipo \textit{private} deve utilizzare il tool \textit{Ganache}.
+	\item \textbf{Vi003} – l’ambiente \textit{testnet} di tipo \textit{public} deve utilizzare il la rete \textit{Ropsten}.
+\end{itemize}
+\pagebreak
+\subsection{TX Service}
+
+\subsubsection{Overview}
+
+Prima di poter configurare la \textit{Testnet} è stato necessario studiare il codice del servizio che la società ha chiamato \textit{TX}, necessario alla comunicazione con la rete \textit{Ethereum} e quindi con lo \textit{Smart Contract}.\\
+Oltre alla comunicazione diretta con la \textit{blockchain} ed alla creazione ed invio delle transazioni su \textit{Ethereum}, \textit{TX} utilizza al suo interno un modulo di \textit{Anti-Fraud} basato sull'attribuzione dei punteggi ed un servizio ausiliario di \textit{Back Office} chiamato \textit{TX Admin}.\\
+\textit{TX Admin}, grazie alla sua interfaccia grafica, permette il controllo e la verifica delle richieste di transazioni \textit{IN-OUT} da parte di un operatore.\\\\
+Di seguito le funzionalità principali del servizio:
+\begin{itemize}
+	\item esecuzione delle transazioni verso indirizzi \textit{Ethereum} tramite l'utilizzo dello \textit{Smart Contract} creato per \textit{Sgame Pro};
+	\item stime sui consumi di \textit{gas};
+	\item verificare la validit' degli indirizzi di destinazione forniti;
+	\item effettuare \textit{callback} al \textit{backend} della piattaforma per comunicare i cambiamenti di stato delle transazioni.
+\end{itemize}
+%----------------------------------------------------------------------------------------
+%	FIGURA 14
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.41]{tx-arch.png}
+        \caption{Architettura semplificata del servizio TX}
+    \label{fig:tx-arch}
+\end{figure}
+\pagebreak
+
+\subsubsection{Specifiche}
+
+La struttura di \textit{TX} ha rappresentato la traccia per quella che poi è diventata la struttura di \textit{Token Value}, e per questo ne condivide la separazione dei moduli in interfaccia e logica di business.\\
+Anche in questo caso il servizio è composto da più moduli separati, ognuno con un compito specifico ed esplicitato in [\textbf{Figura~\ref{fig:tx-seq-diag}}].\\
+%----------------------------------------------------------------------------------------
+%	FIGURA 15
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.55]{tx-seq-diag.png}
+        \caption{Diagramma di sequanza del servizio TX}
+    \label{fig:tx-seq-diag}
+\end{figure}
+\linebreak
+Ogni transazione passa quindi prima da un controllo \textit{Anti-Fraud}, per poi essere inviata al servizio \textit{TX Admin} o direttamente su \textit{Ethereum}.\\\\
+Risulta quindi ora più chiaro come lo sviluppo della \textit{Tesnet Ethereum} è stato obbligatoriamente preceduto dallo studio della comunicazione tra il servizio \textit{TX} e la \textit{blockchain Ethereum}.
+
+\pagebreak
+
+\subsection{Private Tesnet}
+
+Una \textit{private testnet} 
+
+\subsubsection{Creazione}
+
+La crezione di una \textit{testnet} di tipo \textit{private} è diventato un processo relativamente semplice negli ultimi due anni, grazie soprattutto all'elevato numero di \textit{tools} sviluppati ed al continuo miglioramento e semplificazione delle funzionalità associate.
+
+\subsubsubsection{Strumenti utilizzati}
+\subsubsection{Integrazione}
+\subsection{Public Tesnet}
+\subsubsection{Creazione}
+\subsubsection{Integrazione}
 
 \bibliographystyle{abbrv}
 \bibliography{thesis}
