@@ -64,7 +64,8 @@ All'interno del docuemento verrano trattati i seguenti argomenti:
 	\item \textbf{Capitolo 2: Blockchain network:} verrà descritta la rete \textit{blockchain}, le tecnologie che ne permettono il funzionamento, le logiche di base su cui si fondano le transazioni e le principali differenze tra le piattaforme \textit{Bitcoin} ed \textit{Ethereum}.
 	\item \textbf{Capitolo 3: La piattaforma Sgame Pro:} in questo capitolo verrà presentata l'applicazione \textit{Sgame Pro} e l'utilizzo di \textit{Ethereum} all'interno della stessa. Verrà inoltre data una visione d'insieme sulla piattaforma oltre a giustificare le motivazioni alla base dello sviluppo del servizio \textit{Token Value}.
 	\item \textbf{Capitolo 4: Token Value service:}
-	\item \textbf{Capitolo 5: Considerazioni finali:}
+	\item \textbf{Capitolo 5: Ethereum Testnet}
+	\item \textbf{Capitolo 6: Considerazioni finali:}
 \end{itemize}
 
 
@@ -803,14 +804,30 @@ Essendo una rete pubblica un agglomerato di nodi sparsi in tutto il mondo e conn
 	\item utilizzare un client che attui da interfaccia alla \textit{blockchain} e che emuli un \textit{full node}.
 \end{itemize}
 Ovviamente scelta è ricaduta sulla seconda opzione ed il tool utilizzato è stato \textit{METAMASK}.\\
-L'enorme comodità di \textit{METAMASK} è che può essere utilizzato direttamente da \textit{browser} (esiste un famoso \textit{add on} per \textit{Google Chrome}) ed è estremamente facile da utilizzare.\\\\
-Prima di poter utilizzare la rete \textit{Ropsten} con il serivizio \textit{TX} è stato necessario effettuare un nuovo \textit{Deploy} dello \textit{Smart Contract} sulla rete stessa.\\
-Il procedimento è abbastanza semplice una volta capite le logiche di rialscio, ma è richiesta comunque molta attenzione durante la procedura poichè, una volta pubblicato sulla rete, lo \textit{Smart Contract} diventa pubblico e non è più possible rimuoverlo (ovviamente).
+L'enorme comodità di \textit{METAMASK} è che può essere utilizzato direttamente da \textit{browser} (esiste un famoso \textit{add on} per \textit{Google Chrome}) ed è estremamente facile da utilizzare.
 \pagebreak
 
 \subsubsection{Integrazione}
+Prima di poter utilizzare la rete \textit{Ropsten} con il serivizio \textit{TX} è stato necessario effettuare un nuovo \textit{Deploy} dello \textit{Smart Contract} sulla rete stessa.\\
+Il procedimento è abbastanza semplice una volta capite le logiche di rialscio, ma è richiesta comunque molta attenzione durante la procedura poichè, una volta pubblicato sulla rete, lo \textit{Smart Contract} diventa pubblico e non è più possible rimuoverlo (ovviamente).\\
+%----------------------------------------------------------------------------------------
+%	FIGURA 19
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.4]{sgm-contract-deploy.png}
+        \caption{Deploy dell'SGM Contract tramite Remix-IDE}
+    \label{fig:sgm-contract-deploy}
+\end{figure}
+\linebreak
+Esistono più metodi per farlo ma, quello sicuramente più veloce ed intuitivo, è tramite il tool \textit{Remix IDE}.\\
+\textit{Remix IDE} è un \textit{IDE} online ed usufruibile direttamente da \textit{browser} per la creazione, pubblicazione ed interazione con gli \textit{Smart Contract}.\\
+Al suo interno è possibile utilizzare direttamente \textit{METAMASK} e ciò si traduce in un'incredibile risparmio di tempo.\\
+Una volta terminato il \textit{deploy} è stato necessario inserire nel servizio \textit{TX} le medesime informazioni (aggiornate) utilizzate per \textit{testrpc}, con l'unica differenza che l'indirizzo con il quale viene istanziato \textit{web3} necessita di un servizio ponte chiamato \textit{Infura}.\\
+\textit{Infura} funziona esattamente come \textit{METAMASK} ma, a differenza di quest'ultimo, può essere integrato direttamente in un servizio grazie alle numero \textit{API} che mette a disposizione.\\\\
+Una volta terminato il procedimento è stato possibie testare lo \textit{Smart Contract} di  \textit{Sgame Pro} direttamente dal servizio \textit{TX} e di conseguenza testare le prime transazioni direttamente dall'aaplicazione mobile.
 
-
+\section{Considerazione finali}
 
 \bibliographystyle{abbrv}
 \bibliography{thesis}
