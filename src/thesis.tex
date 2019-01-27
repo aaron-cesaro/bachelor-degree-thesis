@@ -18,9 +18,8 @@
   belowskip=3mm,
   showstringspaces=false,
   columns=flexible,
-  basicstyle={\tiny},
   numbers=none,
-  numberstyle=\tiny\color{gray},
+  numberstyle=\tiny\color{mauve},
   keywordstyle=\color{blue},
   commentstyle=\color{dkgreen},
   stringstyle=\color{mauve},
@@ -542,7 +541,7 @@ Tutti i \textit{commit} riguardanti la stessa \textit{feature} andranno sempre a
 Una volta terminata, testata e validata la funzionalità o l'\textit{improvement} è necessario fare lo \textit{stash} di tutti i commit verso un unico commit che avrà (come \textit{commit message}) il nome della \textit{feature} stessa.\\
 Questa andrà quindi inserita sul \textit{branch} di \textit{development} dopo aver effettuato il \textit{rebase}.\\\\
 Il procedimento è invece differente quando, una volta implementata e testata una nuova funzionalità sull'ambiente di \textit{development}, questa vada inserita sull'ambiente di \textit{UAT}, \textit{Staging} e \textit{Production}.\\
-L'unico modo per modificare il codice presente in uno di questi tre ambienti dedicati è tramite \textit{pull request}, il quale titolo deve essere tassativamente il nome della \textit{feature} che si va ad inserire.\\
+L'unico modo per modificare il codice presente in uno di questi tre ambienti dedicati è tramite \textit{pull request}, il quale titolo deve essere tassativamente il nome della \textit{feature} che si va ad inserire.\\\\
 Il rispetto di questo processo si rivela assolutamente necessario per permettere altri membri del team di effettuare \textit{Code review} sul codice che si intende inserire.\\
 Questo permette un controllo efficace sul codice in ingresso nei vari ambienti tramite gli appositi sistemi di \textit{CI/CD}.
 
@@ -661,14 +660,116 @@ Risulta quindi ora più chiaro come lo sviluppo della \textit{Tesnet Ethereum} �
 
 \subsection{Private Tesnet}
 
-Una \textit{private testnet} 
+Una \textit{private testnet}, come già spiegato in precedenza, è una rete locale che utilizza gli stessi protocolli della rete principale \textit{Ethereum}, ma in cui le transazioni vengono \textit{minate} (ossia validate ed inserite in un nuovo blocco) istantaneamente e non richiedono il pagamento di \textit{gas}.\\
+Esistono più strumenti in grado di simulare una \textit{blockchain}, ma, per il rispetto del requisito di vincolo \textbf{Vi002}, la scelta è caduta inevitabilmente su \textit{testrpc}.\\\\
+\textit{testrpc} è un client \textit{Ethereum}, basato su \textit{Node.js}, utilizzato per il test e lo sviluppo di \textit{dApps}. Esso utilizza \textit{ethereumjs}, una implementazione della \textit{EVM} in \textit{Javascript}, per simulare il comportamento della rete e rendere lo sviluppo di applicazioni basata su \textit{Ethereum} più semplice e veloce.
+
+\subsubsection{Strumenti utilizzati}
+
+\textit{Ganache} è l'ultima versione disponibile sul mercato di \textit{testrpc} e fa parte della \textit{Truffle Suite}, una collezione di strumenti (\textit{development environments, testing framework etc..}) estremamente utili per lo sviluppo di applicazioni decentralizzate.\\
+%----------------------------------------------------------------------------------------
+%	FIGURA 16
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.275]{eth-dev-test.png}
+        \caption{Tools di sviluppo utilizzati dalle private networks}
+    \label{fig:eth-dev-test}
+\end{figure}
+\linebreak
+Il \textit{client} include tutte le funzioni \textit{RPC} più comuni (come gli eventi) e può essere eseguito in modo deterministico. Ciò previene il verificarsi di comportamente inattesi durante le transazioni e quindi un maggior controllo sulle stesse.\\\\
+
+L'ultimo strumento necessario alla crezione della testnet prende il nome di \textit{METAMASK}, un "ponte" che permette di utilizzare direttamente dal proprio \textit{browser} un \textit{Ethereum full node} virtuale.
 
 \subsubsection{Creazione}
 
-La crezione di una \textit{testnet} di tipo \textit{private} è diventato un processo relativamente semplice negli ultimi due anni, grazie soprattutto all'elevato numero di \textit{tools} sviluppati ed al continuo miglioramento e semplificazione delle funzionalità associate.
+La crezione di una \textit{testnet} di tipo \textit{private} è diventato un processo relativamente semplice negli ultimi due anni, grazie soprattutto all'elevato numero di \textit{tools} sviluppati (\textit{vedi sezione precedente}) ed al continuo miglioramento e semplificazione delle funzionalità associate.\\
+Le difficoltà riscontrate sono quindi ricadute principalmente sulla comprensione del funzionamento ed delle interdipendenze che intercorrono tra i vari strumenti.\\\\
+Poichè la rete di test si deve trovare necessariamente in locale ed i servizi atti alla comunicazione con la \textit{blockchain} si trovano in \textit{cloud} è stato necessario in prima battuta creare un'apposita istanza su \textit{Azure} dove "far girare" il server di \textit{testrpc}.\\
+Una volta terminato il procedimento è stata necessaria l'installazione delle dipendenze ed infine l'installazione degli strumenti stessi.\\
+%----------------------------------------------------------------------------------------
+%	FIGURA 17
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{ganache-cli.png}
+        \caption{Creazione di una private network con Ganache-CLI}
+    \label{fig:ganache-cli}
+\end{figure}
+\linebreak
+A questo punto, dopo essersi collegati all'istanza tramite \textit{ssh} è semplicemente necessario avviare il server con il comando \textbf{\textit{ganache-cli}}, specificando la porta in ascolto (\textbf{\textit{-p 7545}}) e l'account che si desidera sbloccare (\textbf{\textit{-u 0}}).\\
+In questo caso specifico il server starà in ascolto sulla porta \textit{7545} e si potrà utilizzare l'account \textit{0} (\textit{0x05a...ebf}) per poter interagire con lo smart contract.\\
+Durante le fasi iniziali di test è stato necessario eseguire più \textit{deploy} \textit{Smart Contract} e, per evitare che i server esegua il \textit{reset} degli account a disposizione, è stata aggiunta l'opzione \textbf{\textit{-d}} (deterministic).
 
-\subsubsubsection{Strumenti utilizzati}
 \subsubsection{Integrazione}
+
+Per l'integrazione della testnet con il servizio \textit{TX} è stato necessario utilizzare una libreria che prende il nome di \textit{web3.js}.\\
+\textit{web3.js} è, più propriamente, una collezione di librerie che consente di inviare \textit{Ether} da un account ad un altro, oltre a leggere e scrivere dati verso \textit{Smart Contract}.\\
+Grazie all'utilizzo di questa libreria è stato necessario seguire cinque semplici passi:
+\begin{itemize}
+	\item effettuare il \textit{deploy} dello \textit{Smart Contract} di \textit{Sgame Pro};
+	\item prendersi nota dell'indirizzo (\textit{public key}) e della chiave privata (\textit{private key}) dell'account sbloccato con l'opzione \textbf{\textit{-u}} precedentemente passata al tool \textit{ganache-cli};
+	\item eseguire il \textit{deploy} dello \textit{Smart Contract};
+	\item prendersi nota dell'indirizzo locale, \textit{bytecode} ed \textit{ABI} dello \textit{Smart Contract};
+	\item passare al servizio  \textit{Tx} i dati sopra elecanti, corredati dall'indirizzo dell'instanza creata e specificando la porta inserita come parametro sul tool \textit{ganache-cli} (\textbf{\textit{-p}}).
+\end{itemize}
+
+\begin{lstlisting}
+// DEFINING CONTRACT
+
+    /* contract bytecode (for EVM) */
+    var byteCode = "608...029";
+
+    /* ABI (contract interface definition) */
+    var abi = @"[{""constant"":true,""inputs"": ....... ,""type"":""event""}]";
+
+// DEFINING ACCOUNT
+
+    /* a private key is needed to sign the transactions.
+     * The ethereum address is calculated from this private key 
+     *  so each transaction signed with this key can be related to our ethereum addess
+     */
+    var privateKey = "dc925af9892df9f5f6f00dcbee5f6c59d53b631b32b475dfec49fabed8f57510";
+
+    /* Who can do transactions, signing them with his private key */
+    var senderAddress = "0x67af396FB49b054ad946a9E2cd67123750Fa1207";
+
+    /* now it is possible to create an instance of Account which 
+     * will be used to sign the transactions
+     */
+    var account = new Nethereum.Web3.Accounts.Account(privateKey);
+
+    /* An instance of Web3 must be created to interact to the Ethereum client 
+     * via RPC (remote procedure call).
+     * [constructor public Web3(IAccount account, IClient client)] 
+     * [client use ganache default port 8545] 
+     */
+    var web3 = new Web3(account, "HTTP://127.0.0.1:7545");
+// DEPLOYING CONTRACT
+
+    /* creating _totalSupply to initialize SGM contract using BigInteger 
+     * to pass the amount in wei (1 ETH = 10^18 wei)
+     */
+    System.Numerics.BigInteger totalSupply = System.Numerics.BigInteger.Parse("5000000000000000000");
+
+    /* Now we deploy the smart contract using SGM's abi and bytecode.
+     * The method send the initial transaction (SendRequest), 
+     * aka call the SGM constructor, waits for the trasaction to be mined (AndAwait)
+     * and finally returns the transaction receipt.
+     * The transaction receipt of a newly deployed contract includes
+     * the contract's address.
+     * This address can be now used to interact with the contract itself. 
+    */
+    var receipt = await web3.Eth.DeployContract.SendRequestAndWaitForReceiptAsync(
+        abi,                                              //contract's interface definition
+        byteCode,                                         //contract's  bytecode
+        senderAddress,                                    //deployer
+        new Nethereum.Hex.HexTypes.HexBigInteger(900000), //gas
+        null,
+        totalSupply);                                     //SGM contructor parameter
+
+\end{lstlisting}
+
 \subsection{Public Tesnet}
 \subsubsection{Creazione}
 \subsubsection{Integrazione}
