@@ -703,26 +703,13 @@ Durante le fasi iniziali di test è stato necessario eseguire più \textit{deplo
 
 \subsubsection{Integrazione}
 
-Per l'integrazione della testnet con il servizio \textit{TX} è stato necessario utilizzare una libreria che prende il nome di \textit{web3.js}.\\
-\textit{web3.js} è, più propriamente, una collezione di librerie che consente di inviare \textit{Ether} da un account ad un altro, oltre a leggere e scrivere dati verso \textit{Smart Contract}.\\
-Grazie all'utilizzo di questa libreria è stato necessario seguire cinque semplici passi:
+Per l'integrazione della testnet con il servizio \textit{TX} è stato necessario utilizzare una libreria \textit{wrapper}, chiamata \textit{Nethereum}, per scrivere il codice \textit{C\#} al fine di usare un'altra libreria (cosiderata uno \textit{standard} nella creazione di \textit{dApps}) che prende il nome di \textit{web3.js}.\\
+\textit{web3.js} è, più propriamente, una collezione di librerie che consente di inviare \textit{Ether} da un account ad un altro, oltre a leggere e scrivere dati verso \textit{Smart Contract}.\\\\
+Grazie all'utilizzo di questa libreria è stato necessario seguire quattro semplici passi:
 \begin{itemize}
-	\item effettuare il \textit{deploy} dello \textit{Smart Contract} di \textit{Sgame Pro};
-	\item prendersi nota dell'indirizzo (\textit{public key}) e della chiave privata (\textit{private key}) dell'account sbloccato con l'opzione \textbf{\textit{-u}} precedentemente passata al tool \textit{ganache-cli};
-	\item eseguire il \textit{deploy} dello \textit{Smart Contract};
-	\item prendersi nota dell'indirizzo locale, \textit{bytecode} ed \textit{ABI} dello \textit{Smart Contract};
-	\item passare al servizio  \textit{Tx} i dati sopra elecanti, corredati dall'indirizzo dell'instanza creata e specificando la porta inserita come parametro sul tool \textit{ganache-cli} (\textbf{\textit{-p}}).
-\end{itemize}
-
-\begin{lstlisting}
-// DEFINING CONTRACT
-
-    /* contract bytecode (for EVM) */
-    var byteCode = "608...029";
-
-    /* ABI (contract interface definition) */
-    var abi = @"[{""constant"":true,""inputs"": ....... ,""type"":""event""}]";
-
+	\item prendersi nota dell'indirizzo (\textit{public key}) e della chiave privata (\textit{private key}) dell'account sbloccato con l'opzione \textbf{\textit{-u}} precedentemente passata al tool \textit{ganache-cli} e creare un apposito account.\\
+	In questo modo si stà esplicitando l'indirizzo dell'account (in gergo \textit{owner}) autorizzato all'interazione con lo \textit{Smart Contract} e quindi alla firma delle transazioni tramite \textit{private key}.
+	\begin{lstlisting}
 // DEFINING ACCOUNT
 
     /* a private key is needed to sign the transactions.
@@ -745,6 +732,21 @@ Grazie all'utilizzo di questa libreria è stato necessario seguire cinque sempli
      * [client use ganache default port 8545] 
      */
     var web3 = new Web3(account, "HTTP://127.0.0.1:7545");
+	\end{lstlisting}
+	\item passare al servizio  \textit{Tx} i dati sopra elecanti, corredati dall'indirizzo dell'instanza creata e specificando la porta inserita come parametro sul tool \textit{ganache-cli} (\textbf{\textit{-p}}).
+	\pagebreak
+	\item utilizzare dell'indirizzo locale, il \textit{bytecode} e l'\textit{ABI} dello \textit{Smart Contract} appena \textit{deployato};
+	\begin{lstlisting}
+// DEFINING CONTRACT
+
+    /* contract bytecode (for EVM) */
+    var byteCode = "608...029";
+
+    /* ABI (contract interface definition) */
+    var abi = @"[{""constant"":true,""inputs"": ....... ,""type"":""event""}]";
+	\end{lstlisting}
+	\item effettuare il \textit{deploy} dello \textit{Smart Contract} di \textit{Sgame Pro};
+	\begin{lstlisting}
 // DEPLOYING CONTRACT
 
     /* creating _totalSupply to initialize SGM contract using BigInteger 
@@ -768,11 +770,47 @@ Grazie all'utilizzo di questa libreria è stato necessario seguire cinque sempli
         null,
         totalSupply);                                     //SGM contructor parameter
 
-\end{lstlisting}
+	\end{lstlisting}
+\end{itemize}
+Alla fine della procedura il servizio \textit{TX} ha potuto comunicare con successo con lo \textit{Smart Contract} di \textit{Sgame pro}.\\
+Questo ha permesso agli sviluppatori del serivizio di testare in prima persona tutte le funzionalità dello \textit{Smart Contract} e di creare una \textit{test suit ad-hoc} per accertarsi che la logica del serivizio rispettasse la logica di business.
+\pagebreak
 
 \subsection{Public Tesnet}
-\subsubsection{Creazione}
+
+A differenza di una \textit{testnet} privata come \textit{testrpc}, una \textit{testnet} pubblica ha la peculiarità di essere in tutto e per tutto una \textit{blockchain}, con l'unica differenza che la criptovaluta utilizzata al suo interno non ha nessun valore.\\
+%----------------------------------------------------------------------------------------
+%	FIGURA 18
+%----------------------------------------------------------------------------------------
+\begin{wrapfigure}{r}{0.35\textwidth}
+	\vspace{-31pt}
+	\begin{center}
+    	\includegraphics[width=0.1\textwidth]{ropsten-logo.png}
+  	\end{center}
+  	\vspace{-10pt}
+  	\caption{Ropsten Logo}
+  	\label{fig:ropsten-logo}
+\end{wrapfigure}
+Per il rispetto del requisito \textbf{Vi003} la scelta è ricaduta obbligatoriamente sulla rete \textit{Ethereum Ropsten}.\\
+\textit{Ropsten}, come le altre \textit{testnet} pubbliche, è utilizzata dagli sviluppatori di \textit{Ethereum} di tutto il mondo per testare gli \textit{Smart Contract} e tutti i servizi di interazione con la \textit{blockchain Ethereum}.\\
+Per poterla utilizzare è innanzitutto necessario procurarsi degli \textit{rETH}, che altro non sono che la criptovaluta utilizzata per il pagamento delle transazioni all'interno della rete \textit{Ropsten} stessa.\\
+Ricevere \textit{rETH} è un procedimento estremamente semplice.
+Basta infatti utilizzare quelli che vengono definiti \textit{faucet} (rubinetti), ossia delle pagine web dove, una volta inserito l'indirizzo del proprio \textit{wallet Ropsten}, è possibile ricevere gratuitamente uno o più \textit{rETH}.\\\\
+Testare in una rete pubblica è estremamente differente che testare in una rete privata, anche se il risultato è lo stesso.\\
+Essendo una rete pubblica un agglomerato di nodi sparsi in tutto il mondo e connessi via internet, per accedervi sono applicabili due strade:
+\begin{itemize}
+	\item diventare un \textit{full node}, ossia scaricare lo storico di tutte le transazioni avvenute nella rete \textit{Ropsten}, partendo dal \textit{Genesis Block} (~80Gb);
+	\item utilizzare un client che attui da interfaccia alla \textit{blockchain} e che emuli un \textit{full node}.
+\end{itemize}
+Ovviamente scelta è ricaduta sulla seconda opzione ed il tool utilizzato è stato \textit{METAMASK}.\\
+L'enorme comodità di \textit{METAMASK} è che può essere utilizzato direttamente da \textit{browser} (esiste un famoso \textit{add on} per \textit{Google Chrome}) ed è estremamente facile da utilizzare.\\\\
+Prima di poter utilizzare la rete \textit{Ropsten} con il serivizio \textit{TX} è stato necessario effettuare un nuovo \textit{Deploy} dello \textit{Smart Contract} sulla rete stessa.\\
+Il procedimento è abbastanza semplice una volta capite le logiche di rialscio, ma è richiesta comunque molta attenzione durante la procedura poichè, una volta pubblicato sulla rete, lo \textit{Smart Contract} diventa pubblico e non è più possible rimuoverlo (ovviamente).
+\pagebreak
+
 \subsubsection{Integrazione}
+
+
 
 \bibliographystyle{abbrv}
 \bibliography{thesis}
