@@ -231,7 +231,40 @@ A differenza di \textit{Bitcoin}, \textit{Ethereum} utilizza due concetti di \te
 Uno \textit{Smart Contract} è un programma che contiene un insieme di regole a cui le parti interessate accettano di aderire.\\
 Nel caso in cui le regole definite all'interno di uno smart contract siano soddisfatte l'accordo tra le parti viene automaticamente applicato.\\
 Il codice di uno \textit{Smart Contract} facilita, verifica e impone la negoziazione o l'esecuzione di un accordo o di una transazione e corrisponde alla forma più semplice di automazione decentralizzata.\\
-Il successo di \textit{Ethereum} (e la più grande differenza con \textit{Bitcoin}) dipende proprio dal concetto di \textit{Smart Contract}. grazie a cui è possible programmare una serie definita di azioni che vengono attuate se e solo se le condizioni in esso contenute vengono soddisfatte.
+Il successo di \textit{Ethereum} (e la più grande differenza con \textit{Bitcoin}) dipende proprio dal concetto di \textit{Smart Contract}. grazie a cui è possible programmare una serie definita di azioni che vengono attuate se e solo se le condizioni in esso contenute vengono soddisfatte.\\\\
+Gli \textit{Smart Contract} sono spesso scritti in un linguaggio di programmazione chiamato \textit{Solidity}, estremamente simile a \textit{JavaScript} e \textit{C++}.\\
+Il codice degli \textit{Smart Contract} viene poi eseguito in \textit{Ethereum} tramite una particolare macchina virtuale che prende il nome di \textit{EVM} (\textit{\textbf{E}thereum \textbf{V}irtual \textbf{M}achine})
+
+\subsection{Ethereum Virtual Machine}
+
+Una macchina virtuale (\textit{virtual machine}) ha essenzialmente lo scopo di creare un livello di astrazione tra il codice in esecuzione e la macchina fisica che lo esegue.\\
+Questo livello è necessario per migliorare la portabilità del software, oltre a garantire la separazione tra applicazioni ed host.\\
+La \textit{EVM} è stata progettata come \textit{runtime environment} per l'esecuzione degli \textit{Smart Contract} basati su \textit{Ethereum} e può essere pensata come una \textit{Semi-Touring complete machine}.\\
+Viene definita \textit{"Semi-Touring complete"} in quanto i calcoli eseguiti sono delimitati dal \textit{gas}, ossia dal costo addizionale associato ad ogni transazione.\\
+Il pagamento di una certa somma di \textit{gas} funge da costo associato all'esecuzione e, se il costo supera la somma pagata, la transazione non ha luogo.\\
+Questo si traduce in una forma estremamente efficace per la prevenzione di attacchi di tipo \textit{Ddos} (\textit{Denial-of-service}) o errori logici come i cicli infiniti.\\
+Il codice degli \textit{Smart Contract} non possono essere eseguiti direttamente dalla \textit{EVM}.
+Innanzitutti è prima necessario che siano compilati in un linguaggio di basso livello (codice macchina) che prende il nome di \textit{opcode}.
+
+\subsubsection{Opcode}
+
+L'\textit{EVM} utilizza una serie di istruzioni (al momento sono 140) necessarie all'esecuzione di attività specifiche.\\
+Poiché gli \textit{opcode} hanno dimensione pari ad un (1) byte, possono esistere un massimo di 256 diversi codici operativi.
+
+\subsubsection{Bytecode}
+
+Al fine di salvare efficientemente gli \textit{opcode}, essi vengono codificati in quello che viene chiamato \textit{bytecode} e, ad ogni codice operativo viene assegnato un byte (ad esempio, STOP è 0x00).\\
+Durante l'esecuzione il \textit{bytecode} è diviso in bytes.\\
+%----------------------------------------------------------------------------------------
+%	FIGURA 5
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]\hfill
+    \centering
+    \includegraphics[width=\textwidth]{bytecode.png}
+    \label{fig:bytecode}
+\end{figure}
+\linebreak
+
 
 %----------------------------------------------------------------------------------------
 %	Sgame Pro
