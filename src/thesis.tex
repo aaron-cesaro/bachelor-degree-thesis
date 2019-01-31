@@ -61,16 +61,12 @@ Particolare enfasi è stata data alla comprensione ed all'utilizzo della blockch
 
 All'interno del docuemento verrano trattati i seguenti argomenti: 
 \begin{itemize}
-	\item \textbf{Capitolo 2: Blockchain network:} verrà descritta la rete \textit{blockchain}, le tecnologie che ne permettono il funzionamento, le logiche di base su cui si fondano le transazioni e le principali differenze tra le piattaforme \textit{Bitcoin} ed \textit{Ethereum}.
-	\item \textbf{Capitolo 3: La piattaforma Sgame Pro:} in questo capitolo verrà presentata l'applicazione \textit{Sgame Pro} e l'utilizzo di \textit{Ethereum} all'interno della stessa. Verrà inoltre data una visione d'insieme sulla piattaforma oltre a giustificare le motivazioni alla base dello sviluppo del servizio \textit{Token Value}.
-	\item \textbf{Capitolo 4: Token Value service:}
-	\item \textbf{Capitolo 5: Ethereum Testnet}
-	\item \textbf{Capitolo 6: Considerazioni finali:}
+	\item \textbf{Capitolo 2: Blockchain network:} verrà descritta la rete \textit{blockchain}, le tecnologie che ne permettono il funzionamento, le logiche di base su cui si fondano le transazioni le principali differenze tra le piattaforme \textit{Bitcoin} ed \textit{Ethereum} ed una panoramica sul funzionamento di \textit{Ethereum} stessa.
+	\item \textbf{Capitolo 3: La piattaforma Sgame Pro:} in questo capitolo verrà presentata l'applicazione \textit{Sgame Pro} e l'utilizzo di \textit{Ethereum} all'interno della stessa. Verrà inoltre data una visione d'insieme dell'applicazione, oltre a giustificare le motivazioni alla base dello sviluppo del servizio \textit{Token Value}.
+	\item \textbf{Capitolo 4: Token Value service:} qui viene trattata progettazione e sviluppo del principale servizio realizzato durante il tirocinio, corredato dall'analisi dei requisiti imposti e dall'integrazione dello stesso nella piattaforma.
+	\item \textbf{Capitolo 5: Ethereum Testnet:} verranno descritte dettagliatamente la creazione e l'integrazione delle \textit{testnet} di tipo \textit{private} e \textit{public}, oltre ad una panoramica sugli utilizzi e le necessità di utilizzo delle stesse.
+	\item \textbf{Capitolo 6: Considerazioni finali:} in questa sezione verranno espresse alcune riflessioni sull'andamento del tirocinio e su obiettivi e traguardi raggiunti durante il suo svolgimento.
 \end{itemize}
-
-
-\subsection{Norme tipografiche}
-
 
 %----------------------------------------------------------------------------------------
 %	BLOCKCHAIN
@@ -78,7 +74,7 @@ All'interno del docuemento verrano trattati i seguenti argomenti:
 \pagebreak
 \section{Blockchain network}
 
-\subsection{Cos'è una Blockchain}
+\subsection{la tecnologia Blockchain}
 
 \subsubsection{Definizione}
 
@@ -218,7 +214,7 @@ Questa ricompensa è ciò che incentiva le persone a provvedere al necessario la
 \pagebreak
 \subsection{Ethereum}
 
-\subsubsection{Cos'é Ethereum}
+\subsubsection{Ethereum e Bitcoin}
 
 Come \textit{Bitcoin}, \textit{Ethereum} è una \textit{public blockchain}.\\
 Sebbene ci siano alcune significative differenze tecniche tra le due, la distinzione più importante da notare è che \textit{Bitcoin} ed \textit{Ethereum} differiscono sostanzialmente per scopo e capacità.\\
@@ -234,6 +230,7 @@ Il codice di uno \textit{Smart Contract} facilita, verifica e impone la negoziaz
 Il successo di \textit{Ethereum} (e la più grande differenza con \textit{Bitcoin}) dipende proprio dal concetto di \textit{Smart Contract}. grazie a cui è possible programmare una serie definita di azioni che vengono attuate se e solo se le condizioni in esso contenute vengono soddisfatte.\\\\
 Gli \textit{Smart Contract} sono spesso scritti in un linguaggio di programmazione chiamato \textit{Solidity}, estremamente simile a \textit{JavaScript} e \textit{C++}.\\
 Il codice degli \textit{Smart Contract} viene poi eseguito in \textit{Ethereum} tramite una particolare macchina virtuale che prende il nome di \textit{EVM} (\textit{\textbf{E}thereum \textbf{V}irtual \textbf{M}achine})
+\pagebreak
 
 \subsection{Ethereum Virtual Machine}
 
@@ -248,13 +245,24 @@ Innanzitutti è prima necessario che siano compilati in un linguaggio di basso l
 
 \subsubsection{Opcode}
 
-L'\textit{EVM} utilizza una serie di istruzioni (al momento sono 140) necessarie all'esecuzione di attività specifiche.\\
-Poiché gli \textit{opcode} hanno dimensione pari ad un (1) byte, possono esistere un massimo di 256 diversi codici operativi.
+L'\textit{EVM} utilizza una serie di istruzioni macchina necessarie all'esecuzione di attività specifiche.\\
+Ogni istruzione (\textit{opcode}) viene rapresentata con (1) byte, ossia due caratteri esadecimali.\\
+Ciò comporta che possono esistere un totale massimo di 256 diversi codici operativi.\\
+All'interno della \textit{EVM} esistono istruzioni come \textit{PUSH}, 
+Al fine di salvare efficientemente gli \textit{opcode} essi vengono codificati in quello che viene chiamato \textit{bytecode} e, ad ogni codice operativo viene assegnato un byte (ad esempio, STOP è 0x00).\\
+%----------------------------------------------------------------------------------------
+%	FIGURA 5
+%----------------------------------------------------------------------------------------
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=.5]{bytecode-opcode.png}
+    \label{fig:bytecode-opcode}
+\end{figure}
+\linebreak
 
 \subsubsection{Bytecode}
 
-Al fine di salvare efficientemente gli \textit{opcode}, essi vengono codificati in quello che viene chiamato \textit{bytecode} e, ad ogni codice operativo viene assegnato un byte (ad esempio, STOP è 0x00).\\
-Durante l'esecuzione il \textit{bytecode} è diviso in bytes.\\
+Il \textit{bytecode} della \textit{EVM} rappresenta il codice compilato degli \textit{Smart Contract} ed è necessario per dare la priorità di esecuzione delle istruzioni.\\
 %----------------------------------------------------------------------------------------
 %	FIGURA 5
 %----------------------------------------------------------------------------------------
@@ -264,8 +272,13 @@ Durante l'esecuzione il \textit{bytecode} è diviso in bytes.\\
     \label{fig:bytecode}
 \end{figure}
 \linebreak
+Questa logica permette alla \textit{EVM} di attuare come una macchina a stati.\\
+Durante l'esecuzione infatti il \textit{bytecode} è diviso in bytes, i quali sono enterpretati ad uno ad uno.\\
 
+\subsubsection{Application Binary Interface}
 
+Le chiamate verso \textit{Smart Contract} richiedono un \textbf{ABI} (\textit{\textbf{A}pplication \textbf{B}inary \textbf{I}nterface}), ossia un insieme di dati che documenti tutte le funzioni e gli eventi disponibili nello \textit{Smart Contract} stesso, inclusi gli input e gli output necessari alle chiamate.\\
+L'\textit{ABI} utilizza un formato \textit{JSON} il quale viene rilasciato come \textit{output} della compilazione del codice sorgente \textit{Solidity}.
 %----------------------------------------------------------------------------------------
 %	Sgame Pro
 %----------------------------------------------------------------------------------------
