@@ -61,10 +61,10 @@ Particolare enfasi è stata data alla comprensione ed all'utilizzo della blockch
 
 All'interno del docuemento verrano trattati i seguenti argomenti: 
 \begin{itemize}
-	\item \textbf{Capitolo 2: Blockchain network:} verrà descritta la rete \textit{blockchain}, le tecnologie che ne permettono il funzionamento, le logiche di base su cui si fondano le transazioni le principali differenze tra le piattaforme \textit{Bitcoin} ed \textit{Ethereum} ed una panoramica sul funzionamento di \textit{Ethereum} stessa.
-	\item \textbf{Capitolo 3: La piattaforma Sgame Pro:} in questo capitolo verrà presentata l'applicazione \textit{Sgame Pro} e l'utilizzo di \textit{Ethereum} all'interno della stessa. Verrà inoltre data una visione d'insieme dell'applicazione, oltre a giustificare le motivazioni alla base dello sviluppo del servizio \textit{Token Value}.
+	\item \textbf{Capitolo 2: Blockchain network:} verrà descritta la rete \textit{blockchain}, le tecnologie che ne permettono il funzionamento, le logiche di base su cui si fondano le transazioni, le principali differenze tra le piattaforme \textit{Bitcoin} ed \textit{Ethereum} ed una panoramica sul funzionamento di \textit{Ethereum} stessa.
+	\item \textbf{Capitolo 3: La piattaforma Sgame Pro:} in questo capitolo verrà presentata l'applicazione \textit{Sgame Pro} e l'utilizzo di \textit{Ethereum} all'interno della stessa. Verrà inoltre data una visione d'insieme della piattaforma, oltre a giustificare le motivazioni alla base dello sviluppo del servizio \textit{Token Value}.
 	\item \textbf{Capitolo 4: Token Value service:} qui viene trattata progettazione e sviluppo del principale servizio realizzato durante il tirocinio, corredato dall'analisi dei requisiti imposti e dall'integrazione dello stesso nella piattaforma.
-	\item \textbf{Capitolo 5: Ethereum Testnet:} verranno descritte dettagliatamente la creazione e l'integrazione delle \textit{testnet} di tipo \textit{private} e \textit{public}, oltre ad una panoramica sugli utilizzi e le necessità di utilizzo delle stesse.
+	\item \textbf{Capitolo 5: Ethereum Testnet:} verranno descritte dettagliatamente la creazione e l'integrazione delle \textit{testnet} di tipo \textit{private} e \textit{public}, oltre ad una panoramica sulle necessità derivanti dall'utilizzo delle stesse.
 	\item \textbf{Capitolo 6: Considerazioni finali:} in questa sezione verranno espresse alcune riflessioni sull'andamento del tirocinio e su obiettivi e traguardi raggiunti durante il suo svolgimento.
 \end{itemize}
 
@@ -78,18 +78,17 @@ All'interno del docuemento verrano trattati i seguenti argomenti:
 
 \subsubsection{Definizione}
 
-\textit{Blockchain} è una tecnologia che permette la creazione ed amministrazione di un grande database
-distribuito tramite la gestione di transazioni condivisibili tra più nodi di una rete peer-to-peer.
-Si tratta quindi di un database strutturato in blocchi (\textit{block}) che sono tra loro collegati (\textit{chain}) in modo che ogni transazione avviata sulla rete debba essere validata dalla rete stessa. 
-In estrema sintesi la \textit{blockchain} è rappresentata da una catena di blocchi che
-contengono e gestiscono più transazioni facendo uso della crittografia per rendere sicuro
-l’immagazzinamento di dati ed il trasferimento di strumenti di valuta.\\\\
+La tecnologia \textit{blockchain} permette la creazione ed amministrazione di un grande database distribuito tramite la gestione di transazioni condivisibili tra più nodi di una rete peer-to-peer.\\
+Si tratta quindi di un database le cui transazioni sono raggruppate in blocchi (\textit{block}) tra loro collegati (\textit{chain}) dove ogni singola operazione inviata sulla rete deve prima essere validata dalla rete stessa.\\
+In estrema sintesi la \textit{blockchain} è rappresentata da una catena di blocchi che contengono e gestiscono più transazioni facendo uso della crittografia per rendere sicuro l’immagazzinamento di dati ed il trasferimento di strumenti di valuta.\\\\
 Pur essendo quest'ultima la definizione ``formale'' di \textit{blockchain}, ritengo che essa non evidenzi con chiarezza e semplicità cosa effettivamente una \textit{blockchain} sia.\\
-Proverò quindi a scomporre ed analizzare la prima parte della definizione per rendere più fruibile il concetto.
+Analizzerò quindi la prima parte della definizione per rendere più fruibile il concetto.
 
 \subsubsection{Server based e P2P}
-La rete che normalmente viene utilizzata tutti i giorni per navigare in internet è quasi sempre \textit{server based} [\textbf{Figura~\ref{fig:server-based-net}}].\\
-La peculiarità di questo sistema è che tutte le informazioni sono contenute in un solo posto, il \textit{Server} (da qui il nome \textit{server based}), il quale spesso gestisce un database che esercita il ruolo di archivio per l'immagazzinamento di dati ed effettua su di essi ricerche qualora vengano richiesti.
+
+
+In una rete \textit{server based} [\textbf{Figura~\ref{fig:server-based-net}}], particolari computer, chiamati \textit{server}, gestiscono le attività di rete quali autenticazione degli utenti, archiviazione di file, esecuzione di applicazioni come database e programmi di posta elettronica.\\
+La peculiarità di questo sistema è che tutti i dati sono centralizzati in un unico punto, il \textit{database}, il quale viene interrogato dal \textit{server} per ottenere le informazioni che gli richieste.
 %----------------------------------------------------------------------------------------
 %	FIGURA 1
 %----------------------------------------------------------------------------------------
@@ -108,11 +107,11 @@ La peculiarità di questo sistema è che tutte le informazioni sono contenute in
     \caption{Tipologie di network}
     \label{fig:net}
 \end{figure}\\\\
-A differenza di una rete \textit{server based}, in una rete \textit{peer-to-peer} [\textbf{Figura~\ref{fig:p2p-based-net}}] (anche detta \textit{P2P}) non esiste la presenza di un server centrale che invia informazioni e tutti i dati vengono scambiati direttamente tra i nodi collegati alla rete. Ogni utente è quindi un \textit{client} ed un \textit{server} contemporaneamente.
+A differenza di una rete \textit{server based}, in una rete \textit{peer-to-peer} [\textbf{Figura~\ref{fig:p2p-based-net}}] (anche detta \textit{P2P}) non esiste un server centrale che invia informazioni e tutti i dati vengono scambiati direttamente tra i nodi collegati alla rete. Ogni utente è quindi un \textit{client} ed un \textit{server} contemporaneamente.
 Proprio per questa duplice funzione ogni dispositivo connesso viene detto \textit{nodo} della rete.\\
-La sostanziale differenza tra le due tipologie di rete risiede nel fatto che mentre nel primo caso il \textit{server} contiene tutte le informazioni, nel secondo sono tutti e soli i \textit{client} a contenere i dati.\\
-Ciò significa che nel primo caso il proprietario del \textit{server} può aggiungere, modificare o eliminare i dati che sono contenuti in esso, mentre nel secondo, anche se un nodo cancella o modifica i propri dati, gli altri nodi conterranno comunque tutte le informazioni originali. Da qui il termine distribuito.\\
-\`E ora possible riprendere in mano la definizione originale: \textit{blockchain} è una tecnologia che permette di creare e gestire un grande archivio di informazioni, non contenute in un unico posto, ma del quale esiste una copia in ogni nodo connesso alla rete.
+La sostanziale differenza tra le due tipologie di rete risiede nel fatto che mentre nel primo caso \textit{server} e \textit{database} gestiscono e contengono tutte le informazioni, nel secondo sono tutti e soli i \textit{client} a contenere i dati.\\
+Ciò significa che nel primo caso il proprietario del \textit{database} può aggiungere, modificare o eliminare i dati che sono contenuti in esso, mentre nel secondo, anche se un nodo cancella o modifica i propri dati, gli altri nodi conterranno comunque tutte le informazioni originali. Da qui il termine distribuito.\\
+La tecnologia \textit{blockchain} permette quindi di creare e gestire un grande archivio di informazioni, non contenute in un unico punto e delle quali esiste una copia in ogni nodo connesso alla rete.
 
 \subsection{Blockchain e Bitcoin}
 
@@ -179,7 +178,7 @@ Tutti gli altri nodi validano la transazione, verificando tramite la chiave pubb
 In questo modo si ottiene la validazione della transazione.
 In altre parole per poter inviare un \textit{Bitcoin} è necessario provare alla rete di essere i possessori dell'indirizzo da cui partono i \textit{Bitcoin}.\\
 Nella rete inoltre non viene tenuto conto del bilancio dei singoli utenti, ma vengono semplecemente registrate le transazioni che avvengono.
-La verifica di una transazione in questo modo si riduce semplicemente al controllo di tutte le transazioni passate, effettuate dall’utente che vuole inviare una certa somma di \textit{Bitcoin}.
+La verifica di una transazione in questo modo si riduce semplicemente al controllo di tutte le transazioni precedentemente effettuate dall’utente che vuole inviare una certa somma di \textit{Bitcoin}.
 
 \subsubsection{Blocchi}
 Su una \textit{blockchain} le transazioni vengono ordinate tramite accorpamento con altre transazioni avvenute in un lasso di tempo definito.
@@ -198,7 +197,7 @@ Da qui il nome \textit{blockchain} (catena di blocchi).
 \end{figure}\\
 Le transazioni contenute nello stesso blocco sono considerate come avvenute nello stesso lasso temporale, mentre le transazioni che ancora non sono state raggruppate in un blocco sono considerate \textit{Unconfirmed}, cioè non ancora validate.\\ 
 Ogni nodo della rete può raggruppare più transazioni e creare un blocco, suggerendo alla rete di inserirlo come prossimo blocco della catena. \\
-Per essere effettivamente inserito nella rete un blocco deve contenere la soluzione ad un complesso problema matematico che, per essere risolto richiede una grossa potenza di calcolo, ed un pò di fortuna.
+Per essere effettivamente inserito nella rete un blocco deve contenere la soluzione ad un complesso problema matematico che, per essere risolto, richiede una grossa potenza di calcolo ed un pò di fortuna.
 La risposta altro non è che un numero e l'unico modo per sapere quale sia il numero corretto da inserire consiste nel provarli tutti.
 Il nodo che per primo risolve il problema acquisisce il diritto di inserire il prossimo blocco sulla catena e lo invia a tutti i nodi adiacenti.
 
@@ -225,8 +224,8 @@ A differenza di \textit{Bitcoin}, \textit{Ethereum} utilizza due concetti di \te
 \subsubsection{Smart Contract}
 
 Uno \textit{Smart Contract} è un programma che contiene un insieme di regole a cui le parti interessate accettano di aderire.\\
-Nel caso in cui le regole definite all'interno di uno smart contract siano soddisfatte l'accordo tra le parti viene automaticamente applicato.\\
-Il codice di uno \textit{Smart Contract} facilita, verifica e impone la negoziazione o l'esecuzione di un accordo o di una transazione e corrisponde alla forma più semplice di automazione decentralizzata.\\
+Nel caso in cui le regole definite all'interno di uno \textit{Smart Contract} siano soddisfatte l'accordo tra le parti viene automaticamente applicato.\\
+Il codice di uno \textit{Smart Contract} facilita, verifica ed impone la negoziazione o l'esecuzione di un accordo o di una transazione e corrisponde alla forma più semplice di automazione decentralizzata.\\
 Il successo di \textit{Ethereum} (e la più grande differenza con \textit{Bitcoin}) dipende proprio dal concetto di \textit{Smart Contract}. grazie a cui è possible programmare una serie definita di azioni che vengono attuate se e solo se le condizioni in esso contenute vengono soddisfatte.\\\\
 Gli \textit{Smart Contract} sono spesso scritti in un linguaggio di programmazione chiamato \textit{Solidity}, estremamente simile a \textit{JavaScript} e \textit{C++}.\\
 Il codice degli \textit{Smart Contract} viene poi eseguito in \textit{Ethereum} tramite una particolare macchina virtuale che prende il nome di \textit{EVM} (\textit{\textbf{E}thereum \textbf{V}irtual \textbf{M}achine})
@@ -246,9 +245,8 @@ Innanzitutti è prima necessario che siano compilati in un linguaggio di basso l
 \subsubsection{Opcode}
 
 L'\textit{EVM} utilizza una serie di istruzioni macchina necessarie all'esecuzione di attività specifiche.\\
-Ogni istruzione (\textit{opcode}) viene rapresentata con (1) byte, ossia due caratteri esadecimali.\\
+Ogni istruzione (\textit{opcode}) viene rapresentata con un (1) byte, ossia due caratteri esadecimali.\\
 Ciò comporta che possono esistere un totale massimo di 256 diversi codici operativi.\\
-All'interno della \textit{EVM} esistono istruzioni come \textit{PUSH}, 
 Al fine di salvare efficientemente gli \textit{opcode} essi vengono codificati in quello che viene chiamato \textit{bytecode} e, ad ogni codice operativo viene assegnato un byte (ad esempio, STOP è 0x00).\\
 %----------------------------------------------------------------------------------------
 %	FIGURA 5
@@ -302,8 +300,8 @@ In sviluppo dal 2016, Sgame Pro ha lanciato con successo la sua \textit{Alpha ve
 	\item Consentire ai giocatori di essere remunerati con un nuovo utility token (\textit{SGM}) semplicemente giocando con il proprio cellulare ai titoli proposti;
 	\item Aggregare il frammentato settore dei \textit{publisher}, indipendenti e non, in un'unica piattaforma di gioco \textit{one-stop-shop}.
 \end{itemize}
- L'\textit{SGM} (token di tipo \textit{utility} basato sullo standard \textit{Ethereum ERC-20}) sarà l'unico modo per accedere ai servizi e beneficiare di tutte le funzinalità messe a disposizione degli utenti, oltre ad essere il metodo di pagamento unico per tutte le transazioni all'interno dell'ecosistema della piattaforma.\\
-All'interno dell'applicazione i giocatori non solo avranno l'opportunità di trovare tutti gli ultimi titoli mobile resi disponibli, ma avranno anche l'opportunità di sfidare gli altri utenti sia in privato che tramite la funzionalità di \textit{Public Challenge}.\\
+ L'\textit{SGM} (token di tipo \textit{utility} basato sullo standard \textit{Ethereum ERC-20}) è l'unico modo per accedere ai servizi e beneficiare di tutte le funzinalità messe a disposizione degli utenti, oltre ad essere il metodo di pagamento unico per tutte le transazioni all'interno dell'ecosistema della piattaforma.\\
+All'interno dell'applicazione i giocatori non solo hanno l'opportunità di trovare tutti gli ultimi titoli mobile resi disponibli, ma avranno anche l'opportunità di sfidare gli altri utenti sia in privato che tramite la funzionalità di \textit{Public Challenge}.\\
 Quest'ultima innovazione è davvero dirompente dato che il 78\% del mercato dei giochi mobile è single player, mentre la maggior parte delle entrate derivano da giochi multiplayer.\\
 Gli \textit{Influencers} di \textit{Sgame Pro} includono \textit{Pewdiepie}, \textit{Tweakbox} e molti altri, con oltre 80 milioni di seguaci altamente coinvolti e sparsi in tutto il mondo.\\ 
 
@@ -374,7 +372,7 @@ La sezione \textit{Marketplace} permette agli utenti della piattaforma \textit{S
 
 \subsubsection{Wallet}
 
-All'interno della funzionalità \textit{Wallet} l'utente può sempre tenere sotto controllo il suo patrimonio ed avere una panoramica dettagliata del flusso di cassa (in \textit{SGM}) del suo account.\\
+All'interno della funzionalità \textit{Wallet} l'utente può sempre tenere sotto controllo il suo patrimonio ed avere una panoramica dettagliata sul flusso di cassa (in \textit{SGM}) del suo account.\\
 \\
 Da questa sezione è inoltre possibile trasformare gli \textit{SGM} guadagnati all'interno della piattaforma in criptovaluta fruibile all'interno della rete \textit{Ethereum}.\\
 \`E infatti tramite questa funzinalità che entrano in gioco la \textit{blockchain} e tutti i servizi di supporto ad essa associati.
@@ -393,7 +391,7 @@ Si è deciso quindi di utilizzare un sistema di remunerazione interno "classico"
 \textit{Ethereum} è stato creato per essere un vero e proprio ambiente di sviluppo, infatti esso può essere utilizzato, tramite la creazione di appositi \textit{Smart Contract}, per creare criptovalute che si appoggino sulla sua \textit{currency} base, ossia l'\textit{Ether}.\\
 Le criptovalute derivate da \textit{Ether}, dette anche \textit{token}, sono principalmente state utilizzate per l'attuazione delle \textit{ICO} (\textit{Initial Coin Offer}), ossia \textit{crowdfundig} attuati tramite la vendita di particolari criptovalute, utilizzate come finanziamenti al posto della moneta tradizionale (\textit{FIAT}).\\
 Come già citato l'\textit{SGM} è il token utilizzato dalla piattaforma \textit{Sgame Pro}.\\
-Esso è stato creato allo scopo di uniformare quelli che vengono definiti \textit{In-App purchase}, permettendo così agli utenti di poter acquistare qualunque tipo di beneficio, all'interno dei titoli presenti nella piattaforma, con una unica valuta.\\\\
+Esso è stato creato allo scopo di uniformare quelli che vengono definiti \textit{In-App purchase}, permettendo così agli utenti di poter acquistare qualunque tipo di beneficio, all'interno dei titoli presenti nella piattaforma, con un'unica valuta.\\\\
 L'\textit{SGM} si appoggia su quello che formalmente \textit{Ethereum} definisce lo \textit{Standard ERC-20}, ossia un'interfaccia che gli \textit{Smart Contract} possono implementare nel caso in cui si intenda utilizzare alcune tipologie di servizi offerti da \textit{Ethereum.}
 %----------------------------------------------------------------------------------------
 %	ERC-20 STANDARD
@@ -411,7 +409,7 @@ contract ERC20Interface {
    event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
 }
 \end{lstlisting}
-L'interfaccia \textit{ERC-20} funge da contratto per il set minimo di funzionalità che si intende mettere a disposizione dopo la creazione (\textit{issuing}) ti un token derivato da \textit{Ethereum}.\\
+L'interfaccia \textit{ERC-20} funge da contratto per il set minimo di funzionalità che si intende mettere a disposizione dopo la creazione (\textit{issuing}) di un token derivato da \textit{Ethereum}.\\
 La scelta di aderire a questo standard è stata guidata dall'altissima compatibilità con i vari \textit{Exchange} presenti oggigiorno sul mercato.
 
 \section{Token Value Service}
@@ -423,13 +421,13 @@ Il servizio espone delle \textit{API} pubbliche, utilizzate direttamente dalla p
 Grazie all'implementazione di questo servizio il sistema può applicare le logiche di business basate sul calcolo del prezzo presentato all'interno dell'applicazione, in modo da assicurare equità nell'attribuzione di \textit{SGM} e coerenza del valore riportato sugli oggetti acquistabili all'interno della stessa.\\
 Le funzionalità principali del servizio comprendono:
 \begin{itemize}
-	\item ottenimento del valore del token \textit{SGM} tramite l'utilizzo delle API messe a disposizione di ciascun exchange;
+	\item ottenimento del valore del token \textit{SGM} tramite l'utilizzo delle API messe a disposizione da ciascun exchange;
 	\item memorizzazione persistente dei valori ottenuti su database PostgreSQL;
 	\item caching dei valori per la diminuzione dei tempi di risposta;
 	\item utilizzo e trasmissione di valori ottimali secondo le logiche di selezione approvate dalla società.
 \end{itemize}
 Il servizio rappresenta attualmente un tassello fondamentale per la società \textit{Sgame SA} in quanto il valore del token riportato e propagato all'intera applicazione ha un impatto estremamente concreto sui guadagni dell'intera società.\\\\
-Una logica scorretta all'interno del servizio porterebbe irreparabilemente ad una erronea attribuizione delle vincite agli utenti e ad una possible perdita di denaro per la società.\\\\
+Una logica scorretta all'interno del servizio porterebbe irreparabilmente ad una erronea attribuizione delle vincite agli utenti e ad una possible perdita di denaro per la società.\\\\
 Proprio per queste ragioni il servizio utilizza logiche estremamente semplici e facilmente testabili.
 \pagebreak
 
@@ -440,7 +438,7 @@ Proprio per queste ragioni il servizio utilizza logiche estremamente semplici e 
 	\item \textbf{Seconda Settimana}(42,5 ore) – Acquisizione delle informazioni necessarie alla realizzazione del servizio TokenValue ed ai servizi interni che utilizzerà ;
 	\item \textbf{Terza Settimana}(42,5 ore) – Sviluppo della logica di acquisizione e memorizzazione persistente dei valori necessari all’utilizzo del servizio TokenValue.
 	\item \textbf{Quarta Settimana}(42,5 ore) – Debugging e sviluppo della documentazione del servizio TokenValue. Entro il termine della settimana il tirocinante dovrà aver terminato e documentato il servizio sviluppato.
-	\item \textbf{Quinta Settimana}(42,5 ore) – Creazione dell’interfaccia grafica necessaria agli analisti di Sgame per la visualizzazione dei valori di mercato della criptovaluta target.
+	\item \textbf{Quinta Settimana}(42,5 ore) – Integrazione del servizio nell'ambiente di sviluppo e \textit{testing} associato.
 \end{itemize}
 \pagebreak
 
@@ -519,11 +517,12 @@ All'interno nel servizio è possibile mappare i due moduli riportati nello schem
 Per il rispetto del requisito [\textbf{Vi001}] la scelta del linguaggio di programmazione da utilizzare è inevitabilemente ricaduta su \textit{C\#}.\\
 Questo requisito è dovuto al fatto che l'intera piattaforma è stata sviluppata con la tecnologia \textit{.NET Framework} di \textit{Microsoft} e poggia sul \textit{Cloud Azure}, anch'esso sviluppato e mantenuto dalla stessa \textit{Microsoft}.\\
 Questa scelta ha reso possible una perfetta integrazione del servizio con tutte le estensioni (\textit{Insight, Metrics etc.. }) e funzionalità aggiuntive messe a disposizione dalla piattaforma.\\\\
-Lo stesso requisito ha inoltre imposto la creazione del database tramite l'utilizzo di \textit{PostgreSQL}. Questa è stata presa semplicemente per coerenza tecnologica con gli altri servizi che già utilizzavano la stessa tipologia di database.
+Lo stesso requisito ha inoltre imposto la creazione del \textit{database} tramite l'utilizzo di \textit{PostgreSQL}.\\
+Questa scelta è stata presa semplicemente per coerenza tecnologica con gli altri servizi che già utilizzavano la stessa tipologia di database.
 
 \pagebreak
 \subsection{Sviluppo}
-Per comprendere a pieno l'andamento dello sviluppo del servizio è necessario innanzitutto dare una panoramica sia delle metodologie e dei \textit{tools} utilizzati dalla società che del \textit{Flow di sviluppo} imposto a tutti gli sviluppatori.
+Per comprendere a pieno l'andamento dello sviluppo del servizio è necessario innanzitutto dare una panoramica sia sulle metodologie e sui \textit{tools} utilizzati dalla società che del \textit{Flow di sviluppo} imposto a tutti gli sviluppatori.
 
 \subsubsection{Metodologia di sviluppo}
 Data l'elevata preparazione tecnica e professionalità degli sviluppatori presenti nel \textit{team} di \textit{Sgame Pro} e vista la necessità di continui e rapidi miglioramenti dell'applicazione la società ha deciso di utilizzare una metodologia di sviluppo \textit{Agile} e, più in particolare, \textit{Scrum}.
@@ -557,7 +556,7 @@ La struttura sopra esposta segue fedelmente la struttura dei principali \textit{
 Ad ogni punto sopra elencato corrispondono ambienti di sviluppo differenti, ognuno con uno scopo ben definito.\\\\
 L'ambiente di \textit{Development} è dedicato esclusivamente all'implementazione di servizi, funzionalità e correzione degli errori (\textit{bug fix}).\\\\
 \textit{UAT}, acronimo per \textit{User Acceptance Testing}, è utilizzato per il testing interno delle funzionalità e per l'approvazione interna del \textit{Product Manager}.\\\\
-L'ambiente di \textit{Staging} è dedicato invece al \textit{Beta Testing}, ossia a test effettuati da personale esterno alla compagnia. Questo risulta estremamente efficace nello sviluppo di applicazioni mobile in quanto l'elevato numero di dispositivi presenti nel mercato richiede accertamenti (soprattutto lato \textit{UI}) sulla corretta visualizzazione e funazionamento delle nuove \textit{features}.\\\\
+L'ambiente di \textit{Staging} è dedicato invece al \textit{Beta Testing}, ossia a test effettuati da personale esterno alla compagnia. Questo risulta estremamente efficace nello sviluppo di applicazioni mobile in quanto l'elevato numero di dispositivi presenti nel mercato richiede accertamenti (soprattutto lato \textit{UI}) sulla corretta visualizzazione e funzionamento delle nuove \textit{features}.\\\\
 \textit{Production} è invece l'ambiente "esterno", ossia dove l'applicazione viene utilizzata dagli utenti di tutto il mondo.
 %----------------------------------------------------------------------------------------
 %	FIGURA 9
@@ -589,14 +588,14 @@ Una volta terminata, testata e validata la funzionalità o l'\textit{improvement
 Questa andrà quindi inserita sul \textit{branch} di \textit{development} dopo aver effettuato il \textit{rebase}.\\\\
 Il procedimento è invece differente quando, una volta implementata e testata una nuova funzionalità sull'ambiente di \textit{development}, questa vada inserita sull'ambiente di \textit{UAT}, \textit{Staging} e \textit{Production}.\\
 L'unico modo per modificare il codice presente in uno di questi tre ambienti dedicati è tramite \textit{pull request}, il quale titolo deve essere tassativamente il nome della \textit{feature} che si va ad inserire.\\\\
-Il rispetto di questo processo si rivela assolutamente necessario per permettere altri membri del team di effettuare \textit{Code review} sul codice che si intende inserire.\\
+Il rispetto di questo processo si rivela assolutamente necessario per permettere agli altri membri del team di effettuare \textit{Code review} sul codice che si intende inserire.\\
 Questo permette un controllo efficace sul codice in ingresso nei vari ambienti tramite gli appositi sistemi di \textit{CI/CD}.
 
 \pagebreak
 \subsection{Integrazione}
 Una volta completata l'implementazione del servizio \textit{Token Value} ed i relativi test funzinali e di unità, è stato necessario integrare il servizio con l'infrastruttura già esistente della piattaforma \textit{Sgame Pro}.\\\\
 L'intero \textit{backend} dell'applicazione utilizza ciò che viene definito \textit{Cloud Computing}, ossia un sistema per la distribuzione di servizi di calcolo (\textit{server}), le risorse di archiviazione (\textit{database}) e reti, erogata tramite internet.
-Il \textit{Cloud Computing} ha il vantaggio di offrire risorse estremamente flessibili ed un livello di scalabilità estremamente performante.\\\\
+Il \textit{Cloud Computing} ha il vantaggio di offrire risorse molto flessibili ed un livello di scalabilità estremamente performante.\\\\
 Il processo di integrazione è stato intrapreso dal \textit{DevOps} del team, seguendo le seguenti fasi:
 \begin{itemize}
 	\item creazione dell'istanza;
@@ -605,7 +604,7 @@ Il processo di integrazione è stato intrapreso dal \textit{DevOps} del team, se
 \end{itemize}
 Dei tre passi sopra elencati solo l'ultimo ha riguardato da vicino il mio lavoro.\\
 Infatti, tramite la \textit{CI/CD}, configurata con \textit{Microsoft Azure} e collegata direttamente ai \textit{repository} su \textit{GitHub}, il codice commitato veniva compilato, testato (tramite l'uso di test automatizzati) e pubblicato in forma completamente automatica.\\
-Questo processo, oltre a velocizzare notevolmente lo sviluppo, ha permesso a me ed agli altri membri del team di testare il servizio fin da subito e di raccogliere fin da subito i \textit{feedback} dei \textit{Beta Testers}, oltre a quelli del \textit{Product Owner}.
+Questo processo, oltre a velocizzare notevolmente lo sviluppo, ha permesso a me ed agli altri membri del team di testare immediatamente il servizio e di raccogliere fin da subito i \textit{feedback} dei \textit{Beta Testers}, oltre a quelli del \textit{Product Owner}.
 %----------------------------------------------------------------------------------------
 %	FIGURA 11
 %----------------------------------------------------------------------------------------
@@ -672,7 +671,7 @@ Di seguito le funzionalità principali del servizio:
 \begin{itemize}
 	\item esecuzione delle transazioni verso indirizzi \textit{Ethereum} tramite l'utilizzo dello \textit{Smart Contract} creato per \textit{Sgame Pro};
 	\item stime sui consumi di \textit{gas};
-	\item verificare la validit' degli indirizzi di destinazione forniti;
+	\item verificare la validità degli indirizzi di destinazione forniti;
 	\item effettuare \textit{callback} al \textit{backend} della piattaforma per comunicare i cambiamenti di stato delle transazioni.
 \end{itemize}
 %----------------------------------------------------------------------------------------
@@ -688,7 +687,7 @@ Di seguito le funzionalità principali del servizio:
 
 \subsubsection{Specifiche}
 
-La struttura di \textit{TX} ha rappresentato la traccia per quella che poi è diventata la struttura di \textit{Token Value}, e per questo ne condivide la separazione dei moduli in interfaccia e logica di business.\\
+La struttura di \textit{TX} ha rappresentato la traccia per quella che poi è diventata la struttura di \textit{Token Value} e per questo ne condivide la separazione dei moduli in interfaccia e logica di business.\\
 Anche in questo caso il servizio è composto da più moduli separati, ognuno con un compito specifico ed esplicitato in [\textbf{Figura~\ref{fig:tx-seq-diag}}].\\
 %----------------------------------------------------------------------------------------
 %	FIGURA 15
@@ -733,7 +732,7 @@ L'ultimo strumento necessario alla crezione della testnet prende il nome di \tex
 La crezione di una \textit{testnet} di tipo \textit{private} è diventato un processo relativamente semplice negli ultimi due anni, grazie soprattutto all'elevato numero di \textit{tools} sviluppati (\textit{vedi sezione precedente}) ed al continuo miglioramento e semplificazione delle funzionalità associate.\\
 Le difficoltà riscontrate sono quindi ricadute principalmente sulla comprensione del funzionamento ed delle interdipendenze che intercorrono tra i vari strumenti.\\\\
 Poichè la rete di test si deve trovare necessariamente in locale ed i servizi atti alla comunicazione con la \textit{blockchain} si trovano in \textit{cloud} è stato necessario in prima battuta creare un'apposita istanza su \textit{Azure} dove "far girare" il server di \textit{testrpc}.\\
-Una volta terminato il procedimento è stata necessaria l'installazione delle dipendenze ed infine l'installazione degli strumenti stessi.\\
+Una volta terminato il procedimento è stato necessario installare le dipendenze richieste, per poi integrare gli strumenti stessi.\\
 %----------------------------------------------------------------------------------------
 %	FIGURA 17
 %----------------------------------------------------------------------------------------
@@ -746,7 +745,7 @@ Una volta terminato il procedimento è stata necessaria l'installazione delle di
 \linebreak
 A questo punto, dopo essersi collegati all'istanza tramite \textit{ssh} è semplicemente necessario avviare il server con il comando \textbf{\textit{ganache-cli}}, specificando la porta in ascolto (\textbf{\textit{-p 7545}}) e l'account che si desidera sbloccare (\textbf{\textit{-u 0}}).\\
 In questo caso specifico il server starà in ascolto sulla porta \textit{7545} e si potrà utilizzare l'account \textit{0} (\textit{0x05a...ebf}) per poter interagire con lo smart contract.\\
-Durante le fasi iniziali di test è stato necessario eseguire più \textit{deploy} \textit{Smart Contract} e, per evitare che i server esegua il \textit{reset} degli account a disposizione, è stata aggiunta l'opzione \textbf{\textit{-d}} (deterministic).
+Durante le fasi iniziali di test è stato necessario eseguire più \textit{deploy} dello \textit{Smart Contract} e, per evitare che i server esegua il \textit{reset} degli account a disposizione, è stata aggiunta l'opzione \textbf{\textit{-d}} (deterministic).
 
 \subsubsection{Integrazione}
 
@@ -855,7 +854,7 @@ L'enorme comodità di \textit{METAMASK} è che può essere utilizzato direttamen
 
 \subsubsection{Integrazione}
 Prima di poter utilizzare la rete \textit{Ropsten} con il serivizio \textit{TX} è stato necessario effettuare un nuovo \textit{Deploy} dello \textit{Smart Contract} sulla rete stessa.\\
-Il procedimento è abbastanza semplice una volta capite le logiche di rialscio, ma è richiesta comunque molta attenzione durante la procedura poichè, una volta pubblicato sulla rete, lo \textit{Smart Contract} diventa pubblico e non è più possible rimuoverlo (ovviamente).\\
+Il procedimento è abbastanza semplice una volta capite le logiche di rialscio, ma è richiesta comunque molta attenzione durante la procedura poichè, una volta pubblicato sulla rete, lo \textit{Smart Contract} diviene pubblico e non è più possible rimuoverlo (ovviamente).\\
 %----------------------------------------------------------------------------------------
 %	FIGURA 19
 %----------------------------------------------------------------------------------------
@@ -866,11 +865,11 @@ Il procedimento è abbastanza semplice una volta capite le logiche di rialscio, 
     \label{fig:sgm-contract-deploy}
 \end{figure}
 \linebreak
-Esistono più metodi per farlo ma, quello sicuramente più veloce ed intuitivo, è tramite il tool \textit{Remix IDE}.\\
+Esistono più metodi per il \textit{deploy}, ma, quello sicuramente più veloce ed intuitivo, è tramite il tool \textit{Remix IDE}.\\
 \textit{Remix IDE} è un \textit{IDE} online ed usufruibile direttamente da \textit{browser} per la creazione, pubblicazione ed interazione con gli \textit{Smart Contract}.\\
 Al suo interno è possibile utilizzare direttamente \textit{METAMASK} e ciò si traduce in un'incredibile risparmio di tempo.\\
 Una volta terminato il \textit{deploy} è stato necessario inserire nel servizio \textit{TX} le medesime informazioni (aggiornate) utilizzate per \textit{testrpc}, con l'unica differenza che l'indirizzo con il quale viene istanziato \textit{web3} necessita di un servizio ponte chiamato \textit{Infura}.\\
-\textit{Infura} funziona esattamente come \textit{METAMASK} ma, a differenza di quest'ultimo, può essere integrato direttamente in un servizio grazie alle numero \textit{API} che mette a disposizione.\\\\
+\textit{Infura} funziona esattamente come \textit{METAMASK} ma, a differenza di quest'ultimo, può essere integrato direttamente in un servizio grazie alle numerose \textit{API} che mette a disposizione.\\\\
 Una volta terminato il procedimento è stato possibie testare lo \textit{Smart Contract} di  \textit{Sgame Pro} direttamente dal servizio \textit{TX} e di conseguenza testare le prime transazioni direttamente dall'aaplicazione mobile.
 
 \section{Considerazioni finali}
