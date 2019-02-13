@@ -23,6 +23,9 @@
 % Better typography
 \usepackage[protrusion=true,expansion=true]{microtype}
 
+% Alignement
+\usepackage{tabularx}
+
 % New page at each section
 \usepackage{titlesec}
 \newcommand{\sectionbreak}{\clearpage}
@@ -42,9 +45,9 @@
 \pagestyle{fancy}
 \fancyhf{}
 % Header
-\lhead{\leftmark}
+%\lhead{\leftmark}
 % Footer
-\rfoot{Pagina \thepage\ di \unlinkedpageref{LastPage}}
+\rfoot{\thepage\ di \unlinkedpageref{LastPage}}
 % Line above footer
 \renewcommand{\footrulewidth}{0.4pt}
 
@@ -56,22 +59,22 @@
 		\textsc{\LARGE Universit\`{a} degli Studi di Padova}\\[3mm]
 		\textsc{\Large Dipartimento di Matematica “Tullio Levi-Civita”}\\
 		\titledivider\\[3mm]
-		\textsc{Scuola Di Scienze\\Corso Di Laurea In Informatica}\vfill
+		\textsc{Corso Di Laurea In Informatica}\vfill
 		\begin{center}
-			\includegraphics[scale=.25]{/logo.png}\vspace*{150pt}
+			\includegraphics[scale=.25]{/logo.png}\vspace{100pt}
 		\end{center}
-		\textsc{\Large\@title}
-		\ifcsname @subtitle\endcsname\textsc{\@subtitle}\\[3mm]\fi
+			\begingroup \vspace{-90pt}
+				\small
+				\small Tesi di laurea triennale \vspace{50pt}\\	
+				\textsc{\Large\@title}\\ \vspace{50pt}
+				\renewcommand*{\arraystretch}{1}
+  				\noindent
+				\begin{tabularx}{\linewidth}{@{}lXl@{}}
+				\textit{Relatore}  & & \textit{Laureando}\\
+				Prof.\@ Amir Bujari & & Aaron Cesaro\\
+		\end{tabularx}
+			\endgroup
 	\end{titlepage}
-	\begin{center}
-		\textbf{\large Informazioni sul documento}\\[3mm]
-		\begin{tabular}{r|l}
-			\textbf{Titolo} & \@title \\
-			\textbf{Creazione} & \@creationdate \\
-			\textbf{Redazione} & \@redactedby \\
-			\textbf{Email di riferimento} & aaron.cesaro@studenti.unipd.it \\
-		\end{tabular}\\[1.5cm]
-	\end{center}
 }
 
 % Hack around hyperref breakage

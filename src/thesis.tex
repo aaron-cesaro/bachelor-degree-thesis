@@ -7,6 +7,7 @@
 \usepackage{graphicx}
   \graphicspath{ {../media/} }
 \usepackage{wrapfig}
+\usepackage{afterpage}
 \usepackage{color}
   \definecolor{dkgreen}{rgb}{0,0.6,0}
   \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -27,6 +28,12 @@
   breakatwhitespace=true,
   tabsize=3
 }
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage
+}
 
 \input{../resources/solidity-highlighting.tex}
 
@@ -36,11 +43,20 @@
 %----------------------------------------------------------------------------------------
 
 \title{Servizi di supporto alle transazioni su Blockchain Ethereum}
-\creationdate{10 Novembre 2018}
-\redactedby{Aaron Cesaro}
 \begin{document}
 \maketitle
-\pagebreak
+\leavevmode\thispagestyle{empty}\newpage
+\leavevmode\thispagestyle{empty}\newpage
+%----------------------------------------------------------------------------------------
+%	Ringraziamenti
+%----------------------------------------------------------------------------------------
+\begin{quote}
+	\textit{A mia madre, per avermi dato il coraggio di intraprendere questo percorso.\\\\
+	A mio padre, per avermi dato la forza di portarlo a termine.}
+\end{quote}
+\leavevmode\thispagestyle{empty}\newpage
+\leavevmode\thispagestyle{empty}\newpage
+\leavevmode\thispagestyle{empty}\newpage
 %----------------------------------------------------------------------------------------
 %	ABSTRACT
 %----------------------------------------------------------------------------------------
@@ -67,6 +83,12 @@ All'interno del docuemento verrano trattati i seguenti argomenti:
 	\item \textbf{Capitolo 5: Ethereum Testnet:} verranno descritte dettagliatamente la creazione e l'integrazione delle \textit{testnet} di tipo \textit{private} e \textit{public}, oltre ad una panoramica sulle necessità derivanti dall'utilizzo delle stesse.
 	\item \textbf{Capitolo 6: Considerazioni finali:} in questa sezione verranno espresse alcune riflessioni sull'andamento del tirocinio e su obiettivi e traguardi raggiunti durante il suo svolgimento.
 \end{itemize}
+
+\subsection{Motivazioni della scelta}
+
+La possibilità di lavorare a stretto contatto con la realtà dinamica di una \textit{Startup} ed il possibile avvicinamento ad una nuova tecnologia come la \textit{Blockchain}, ha fatto si che, tra tutte le proposte raccolte durante l'evento \textit{Stage-it}, la mia scelta ricadesse su una società esterna, \textit{Sgame SA}.\\
+L'interesse dimostrato nelle mie capacità, ancor prima che potessi effettivamente iniziare il tirocinio, mi ha dato inoltre la motivazione necessario a transferirmi all'estero (più precisamente in Svizzera) per intraprendere questa fantastica esperienza.\\
+Il progetto proposto, oltre a permettermi di toccare con mano una realtà così differente da quella a cui ero abituato durante gli studi universitari, mi ha permesso di apprendere un metodo di lavoro e mi ha aiutato a capire ciò che realmente mi appassiona.
 
 %----------------------------------------------------------------------------------------
 %	BLOCKCHAIN
@@ -291,7 +313,7 @@ L'\textit{ABI} utilizza un formato \textit{JSON} il quale viene rilasciato come 
     \label{fig:sgamepro}
 \end{figure}
 
-\subsection{Overview}
+\subsection{Panoramica}
 
 \textit{Sgame Pro} è un aggregatore di \textit{mobile games} di proprietà di \textit{Sgame SA}, con sede a Lugano, Svizzera.\\
 In sviluppo dal 2016, Sgame Pro ha lanciato con successo la sua \textit{Alpha version} nel 2017, raggiungendo oltre 50.000 download senza alcuna spesa di marketing.\\
@@ -414,7 +436,7 @@ La scelta di aderire a questo standard è stata guidata dall'altissima compatibi
 
 \section{Token Value Service}
 
-\subsection{Overview}
+\subsection{Panoramica}
 
 \textit{Token Value} è un servizio di acquisizione e memorizzazione dello storico di valori di criptovalute sulle diverse piattaforme di scambio (\textit{Exchange}).\\
 Il servizio espone delle \textit{API} pubbliche, utilizzate direttamente dalla piattaforma \textit{Sgame Pro}, per il calcolo delle vincite dei giocatori ed il prezzo dei beni acquistabili nella sezione \textit{Marketplace}. \\
@@ -617,7 +639,7 @@ Questo processo, oltre a velocizzare notevolmente lo sviluppo, ha permesso a me 
 
 \section{Ethereum Testnet}
 
-\subsection{Overview}
+\subsection{Panoramica}
 
 Oltre allo sviluppo del servizio \textit{Token Value} al tirocinante è stato chiesto di testare integralmente le funzinalità dello \textit{Smart Contract} utilizzato dallo piattaforma.\\
 Per farlo è stato necessario creare innanzitutto quella che viene definita una \textit{TestRPC}, ossia una rete locale che utilizza gli stessi protocolli della rete principale di \textit{Ethereum}, ma in cui le transazioni non richiedono l'esborso di denaro, ossia il pagamento di \textit{gas}.\\
@@ -662,7 +684,7 @@ Viene di seguito riportata la specifica dei requisiti richiesti per lo sviluppo 
 \pagebreak
 \subsection{TX Service}
 
-\subsubsection{Overview}
+\subsubsection{Panoramica}
 
 Prima di poter configurare la \textit{Testnet} è stato necessario studiare il codice del servizio che la società ha chiamato \textit{TX}, necessario alla comunicazione con la rete \textit{Ethereum} e quindi con lo \textit{Smart Contract}.\\
 Oltre alla comunicazione diretta con la \textit{blockchain} ed alla creazione ed invio delle transazioni su \textit{Ethereum}, \textit{TX} utilizza al suo interno un modulo di \textit{Anti-Fraud} basato sull'attribuzione dei punteggi ed un servizio ausiliario di \textit{Back Office} chiamato \textit{TX Admin}.\\
@@ -896,5 +918,29 @@ Posso ad oggi affermare di far parte di un ristretto gruppo di svilupattori che 
 \pagebreak
 \bibliographystyle{abbrv}
 \bibliography{thesis}
+\begin{itemize}
+	\item The Hitchhiker’s Guide to Smart Contracts in Ethereum\\ 
+	\textbf{Link:} https://\textit{blog.zeppelin.solutions/the-hitchhikers-guide-to-smart-contracts-in-ethereum-848f08001f05}
+	\item What is Blockchain Technology? A Step-by-Step Guide For Beginners\\
+	\textbf{Link:} https://blockgeeks.com/guides/what-is-blockchain-technology/
+	\item Introducing Ethereum and Solidity: Foundations of Cryptocurrency and Blockchain Programming for Beginners\\
+	\textbf{Autore:} \textit{Chris Dannen} \textbf{ISBN}-13: 978-1484225349
+	\item Truffle documentation\\
+	\textbf{Link:} \textit{https://truffleframework.com/docs/truffle/quickstart}
+	\item Nethereum documentation\\
+	\textbf{Link:} https://nethereum.readthedocs.io/en/latest/getting-started/
+	\item Pro C\# 7 : With .NET and .NET Core
+	\textbf{Autori:} Andrew W. Troelsen, Philip Japikse \textbf{ISBN}-13: 978-1484230176
+	\item web3.js Documentation\\
+	\textbf{Link:} https://web3js.readthedocs.io/en/1.0/
+	\item Deploy a Smart Contract on ethereum Development, Ropsten, and MainNet \\
+	\textbf{Link:} https://medium.com/coinmonks/complete-walkthrough-deploy-a-smart-contract-to-development-ropsten-and-mainnet-howtobuidl-a7d1a89fa75a
+	\item Solidity Documentation\\
+	\textbf{Link:} https://solidity.readthedocs.io/en/v0.4.21/
+	\item Ethereum Virtual Machine Opcodes\\
+	\textbf{Link:} https://ethervm.io/
+	\item PostgreSQL Documentation\\
+	\textbf{Link:} https://www.postgresql.org/docs/
+\end{itemize}
 
 \end{document}
