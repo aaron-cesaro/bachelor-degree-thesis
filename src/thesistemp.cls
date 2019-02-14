@@ -71,7 +71,7 @@
   				\noindent
 				\begin{tabularx}{\linewidth}{@{}lXl@{}}
 				\textit{Relatore}  & & \textit{Laureando}\\
-				Dr. \@ Armir Bujari & & Aaron Cesaro\\
+				Dott. \@ Armir Bujari & & Aaron Cesaro\\
 		\end{tabularx}
 			\endgroup
 	\end{titlepage}
